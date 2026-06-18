@@ -2,8 +2,8 @@
 
 # Installation
 
->[!note] Requirements (Linux/MacOS)
->Make sure you have `nix` installed on your `$PATH`
+> [!IMPORTANT] Requirements (Linux/MacOS)
+> Make sure you have `nix` installed on your `$PATH`
 
 For Linux/MaxOS users, enter the development shell with  
 ```bash
