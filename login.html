@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CapsLock — Login</title>
+  <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <div class="login-container">
+
+    <!-- LEFT SIDE -->
+    <div class="login-left">
+      <div class="brand">⚡ CapsLock</div>
+      <h1>Your Advisory<br>Platform</h1>
+      <p>Manage clients, track learning, and grow your network — all in one place.</p>
+    </div>
+
+    <!-- RIGHT SIDE: LOGIN FORM -->
+    <div class="login-right">
+      <div class="login-box">
+        <h2>Welcome Back 👋</h2>
+        <p class="subtitle">Login to your CapsLock account</p>
+
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="sarah@aag.com" />
+        </div>
+
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" id="password" placeholder="Enter your password" />
+        </div>
+
+        <p class="error-msg" id="error-msg"></p>
+
+        <button class="login-btn" onclick="handleLogin()">Login</button>
+
+        <p class="forgot">Forgot password? <a href="#">Reset here</a></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="login.js"></script>
+</body>
+</html>
