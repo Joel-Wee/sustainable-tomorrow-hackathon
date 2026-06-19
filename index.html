@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>AdvisorOS</title>
+  <title>CapsLock — Advisory Platform</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- TOP NAVBAR -->
+  <!-- NAVBAR -->
   <nav class="navbar">
     <div class="nav-left">
       <div class="logo">CapsLock</div>
@@ -19,130 +19,227 @@
       <a href="#">Partners</a>
     </div>
     <div class="nav-right">
-      <span class="notif-bell">🔔 <span class="notif-count">3</span></span>
-      <div class="avatar">S</div>
+      <div class="notif-bell">
+        <span class="notif-count">3</span>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+        </svg>
+      </div>
+      <div class="avatar">SA</div>
     </div>
   </nav>
 
-  <!-- HERO BANNER -->
+  <!-- HERO -->
   <div class="hero">
-    <h1>Welcome, Sarah Ahmad</h1>
-    <p>Friday, 20 June 2026 — Have a productive day!</p>
-
-    <!-- QUICK ACCESS BUTTONS -->
-    <div class="quick-access">
-      <div class="quick-btn">📅<br>Calendar</div>
-      <div class="quick-btn">👥<br>Clients</div>
-      <div class="quick-btn">💰<br>Expenses</div>
-      <div class="quick-btn">🎓<br>Learning</div>
-      <div class="quick-btn">🤝<br>Partners</div>
+    <div class="hero-content">
+      <h1>Welcome back, Sarah Ahmad</h1>
+      <p id="hero-date">Friday, 20 June 2026</p>
+    </div>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">3</div>
+        <div class="stat-label">Meetings Today</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-number">12</div>
+        <div class="stat-label">CPD Points</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-number">2</div>
+        <div class="stat-label">Follow Ups Due</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <div class="stat-number">5</div>
+        <div class="stat-label">New Announcements</div>
+      </div>
     </div>
   </div>
 
-  <!-- MAIN DASHBOARD -->
+  <!-- QUICK NAV -->
+  <div class="quick-nav">
+    <div class="quick-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+      <span>Calendar</span>
+    </div>
+    <div class="quick-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+      <span>Clients</span>
+    </div>
+    <div class="quick-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+      <span>Expenses</span>
+    </div>
+    <div class="quick-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
+      <span>Learning</span>
+    </div>
+    <div class="quick-btn">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
+      <span>Partners</span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
   <div class="main">
 
-    <!-- MORNING BRIEFING (FULL WIDTH) -->
+    <!-- MORNING BRIEFING -->
     <div class="card briefing-card">
       <div class="card-header">
-        <span>☀️ AI Morning Briefing</span>
-        <span class="badge">AI Powered</span>
+        <span class="card-title">AI Morning Briefing</span>
+        <span class="badge-blue">AI Powered</span>
       </div>
       <p id="briefing-text">Loading your briefing...</p>
     </div>
 
-    <!-- ROW 2 -->
+    <!-- ROW 2: CALENDAR + FOLLOW UPS -->
     <div class="row">
 
-      <!-- CALENDAR -->
-      <div class="card">
+      <!-- WEEKLY CALENDAR -->
+      <div class="card calendar-card">
         <div class="card-header">
-          <span>📅 Today's Calendar</span>
-          <span class="see-all">See all →</span>
+          <span class="card-title">Weekly Schedule</span>
+          <span class="badge-grey">June 2026</span>
         </div>
-        <ul class="item-list">
-          <li>
-            <div class="item-dot blue"></div>
-            <div>
-              <strong>John Lim</strong>
-              <p>10:00am · Retirement Planning</p>
-            </div>
-          </li>
-          <li>
-            <div class="item-dot green"></div>
-            <div>
-              <strong>Tan Family</strong>
-              <p>1:00pm · Estate Planning</p>
-            </div>
-          </li>
-          <li>
-            <div class="item-dot orange"></div>
-            <div>
-              <strong>ABC Corp</strong>
-              <p>4:00pm · Group Insurance</p>
-            </div>
-          </li>
-        </ul>
+        <div class="calendar-table-wrap">
+          <table class="calendar-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="time-col">8AM</td>
+                <td class="task-email">Email</td>
+                <td class="task-email">Email</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-planning">Financial Planning</td>
+              </tr>
+              <tr>
+                <td class="time-col">9AM</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-email">Email</td>
+                <td class="task-planning">Financial Planning</td>
+                <td class="task-email">Email</td>
+                <td class="task-staff">Staff Meeting</td>
+              </tr>
+              <tr>
+                <td class="time-col">10AM</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-planning">Financial Planning</td>
+                <td class="task-email">Email</td>
+                <td class="task-email">Email</td>
+                <td class="task-meeting">Client Meeting</td>
+              </tr>
+              <tr>
+                <td class="time-col">11AM</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-planning">Financial Planning</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-meeting">Client Meeting</td>
+              </tr>
+              <tr>
+                <td class="time-col">12PM</td>
+                <td class="task-email">Email</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-planning">Financial Planning</td>
+                <td class="task-email">Email</td>
+              </tr>
+              <tr>
+                <td class="time-col">1PM</td>
+                <td class="task-staff">Staff Meeting</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-staff">Staff Meeting</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-service">Client Service</td>
+              </tr>
+              <tr>
+                <td class="time-col">2PM</td>
+                <td class="task-staff">Staff Meeting</td>
+                <td class="task-email">Email</td>
+                <td class="task-staff">Staff Meeting</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-meeting">Client Meeting</td>
+              </tr>
+              <tr>
+                <td class="time-col">3PM</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-meeting">Client Meeting</td>
+              </tr>
+              <tr>
+                <td class="time-col">4PM</td>
+                <td class="task-planning">Financial Planning</td>
+                <td class="task-planning">Financial Planning</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-email">Email</td>
+                <td class="task-planning">Financial Planning</td>
+              </tr>
+              <tr>
+                <td class="time-col">5PM</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-meeting">Client Meeting</td>
+                <td class="task-service">Client Service</td>
+                <td class="task-email">Email</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
 
-      <!-- PROACTIVE FOLLOW UPS -->
+      <!-- FOLLOW UPS -->
       <div class="card">
         <div class="card-header">
-          <span>🔔 Proactive Follow Ups</span>
-          <span class="see-all">See all →</span>
+          <span class="card-title">Proactive Follow Ups</span>
+          <span class="see-all">See all</span>
         </div>
         <ul class="item-list">
           <li>
-            <div class="item-dot red"></div>
-            <div>
+            <div class="priority-dot red"></div>
+            <div class="item-info">
               <strong>Sarah Ng</strong>
               <p>No contact in 21 days</p>
             </div>
+            <span class="tag tag-red">Urgent</span>
           </li>
           <li>
-            <div class="item-dot orange"></div>
-            <div>
+            <div class="priority-dot orange"></div>
+            <div class="item-info">
               <strong>David Chong</strong>
               <p>Policy renewal in 7 days</p>
             </div>
+            <span class="tag tag-orange">Soon</span>
           </li>
           <li>
-            <div class="item-dot green"></div>
-            <div>
+            <div class="priority-dot blue"></div>
+            <div class="item-info">
+              <strong>Tan Family</strong>
+              <p>Estate plan review due</p>
+            </div>
+            <span class="tag tag-blue">Pending</span>
+          </li>
+          <li>
+            <div class="priority-dot green"></div>
+            <div class="item-info">
               <strong>Mary Lim</strong>
-              <p>Called yesterday ✅</p>
+              <p>Called yesterday</p>
             </div>
-          </li>
-        </ul>
-      </div>
-
-      <!-- NOTIFICATIONS -->
-      <div class="card">
-        <div class="card-header">
-          <span>🔔 Notifications</span>
-          <span class="badge-grey">3 new</span>
-        </div>
-        <ul class="item-list">
-          <li>
-            <div class="item-dot blue"></div>
-            <div>
-              <strong>CPD Points Updated</strong>
-              <p>You now have 12 points</p>
-            </div>
-          </li>
-          <li>
-            <div class="item-dot green"></div>
-            <div>
-              <strong>New Meeting Booked</strong>
-              <p>Client booked for Monday</p>
-            </div>
-          </li>
-          <li>
-            <div class="item-dot red"></div>
-            <div>
-              <strong>Expense Report Due</strong>
-              <p>Deadline: This Friday</p>
-            </div>
+            <span class="tag tag-green">Done</span>
           </li>
         </ul>
       </div>
@@ -155,29 +252,29 @@
       <!-- ANNOUNCEMENTS -->
       <div class="card">
         <div class="card-header">
-          <span>📢 Announcements</span>
-          <span class="see-all">See all →</span>
+          <span class="card-title">Announcements</span>
+          <span class="see-all">See all</span>
         </div>
         <ul class="item-list">
           <li>
-            <div class="item-dot blue"></div>
-            <div>
+            <div class="priority-dot blue"></div>
+            <div class="item-info">
               <strong>TechStart Sdn Bhd</strong>
-              <p>Needs wealth planning help</p>
+              <p>Seeking wealth planning assistance</p>
             </div>
           </li>
           <li>
-            <div class="item-dot green"></div>
-            <div>
+            <div class="priority-dot blue"></div>
+            <div class="item-info">
               <strong>GreenCo Sdn Bhd</strong>
-              <p>Looking for corporate insurance</p>
+              <p>Enquiring about corporate insurance</p>
             </div>
           </li>
           <li>
-            <div class="item-dot orange"></div>
-            <div>
-              <strong>Team Meeting</strong>
-              <p>Friday 3:00pm — All advisors</p>
+            <div class="priority-dot orange"></div>
+            <div class="item-info">
+              <strong>Team Briefing</strong>
+              <p>Friday 3:00pm — All advisors required</p>
             </div>
           </li>
         </ul>
@@ -186,59 +283,63 @@
       <!-- KNOWLEDGE BASE -->
       <div class="card">
         <div class="card-header">
-          <span>📚 Knowledge Base</span>
-          <span class="see-all">See all →</span>
+          <span class="card-title">Knowledge Base</span>
+          <span class="see-all">See all</span>
         </div>
         <ul class="item-list">
           <li>
-            <div class="item-dot blue"></div>
-            <div>
+            <div class="priority-dot blue"></div>
+            <div class="item-info">
               <strong>Retirement Planning 101</strong>
-              <p>📄 Guide · 5 min read</p>
+              <p>Guide · 5 min read</p>
             </div>
+            <span class="tag tag-blue">Guide</span>
           </li>
           <li>
-            <div class="item-dot green"></div>
-            <div>
+            <div class="priority-dot blue"></div>
+            <div class="item-info">
               <strong>Estate Planning Basics</strong>
-              <p>📄 Handbook · 8 min read</p>
+              <p>Handbook · 8 min read</p>
             </div>
+            <span class="tag tag-blue">Guide</span>
           </li>
           <li>
-            <div class="item-dot orange"></div>
-            <div>
+            <div class="priority-dot green"></div>
+            <div class="item-info">
               <strong>Wealth Accumulation</strong>
-              <p>🎥 Video · 12 mins</p>
+              <p>Video · 12 mins</p>
             </div>
+            <span class="tag tag-green">Video</span>
           </li>
         </ul>
       </div>
 
-      <!-- CPD PROGRESS -->
+      <!-- NOTIFICATIONS -->
       <div class="card">
         <div class="card-header">
-          <span>🏆 CPD Progress</span>
-          <span class="badge">12 / 15 pts</span>
+          <span class="card-title">Notifications</span>
+          <span class="badge-grey">3 new</span>
         </div>
-        <div class="cpd-bar-wrap">
-          <div class="cpd-bar">
-            <div class="cpd-fill" style="width: 80%"></div>
-          </div>
-          <p class="cpd-label">80% — Almost there! 3 more points needed</p>
-        </div>
-        <ul class="item-list" style="margin-top:12px">
+        <ul class="item-list">
           <li>
-            <div class="item-dot green"></div>
-            <div>
-              <strong>Certificate: AIA Advanced</strong>
-              <p>+5 pts · Completed</p>
+            <div class="priority-dot blue"></div>
+            <div class="item-info">
+              <strong>CPD Points Updated</strong>
+              <p>You now have 12 points this month</p>
             </div>
           </li>
           <li>
-            <div class="item-dot blue"></div>
-            <div>
-              <strong>Seminar: Wealth Summit</strong>
-              <p>+2 pts · Completed</p>
+            <div class="priority-dot green"></div>
+            <div class="item-info">
+              <strong>New Meeting Booked</strong>
+              <p>Client scheduled for Monday 10am</p>
+            </div>
+          </li>
+          <li>
+            <div class="priority-dot red"></div>
+            <div class="item-info">
+              <strong>Expense Report Due</strong>
+              <p>Submission deadline this Friday</p>
             </div>
           </li>
         </ul>

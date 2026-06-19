@@ -1,24 +1,14 @@
-// Check if user is logged in, if not send to login page
 if (!localStorage.getItem('loggedIn')) {
   window.location.href = 'pages/login.html';
 }
 
-// Get username from storage
-const userName = localStorage.getItem('userName');
-if (userName) {
-  document.querySelector('.advisor-name') &&
-  (document.querySelector('.advisor-name').innerText = `Welcome, ${userName} 👋`);
-}
+const briefing = `Good morning, Sarah. You have 3 client meetings scheduled today — 
+John Lim at 10:00am for Retirement Planning, the Tan Family at 1:00pm for Estate Planning, 
+and ABC Corp at 4:00pm for Group Insurance. 
 
-// AI Morning Briefing
-const briefing = `Good morning Sarah! Here's your day at a glance — you have 3 meetings today. 
-Starting with John Lim at 10:00am for Retirement Planning, followed by the Tan Family 
-at 1:00pm for Estate Planning, and ABC Corp at 4:00pm for Group Insurance. 
+Two follow-ups require your attention: Sarah Ng has not been contacted in 21 days, 
+and David Chong's policy is due for renewal in 7 days. 
 
-⚠️ Action needed: Sarah Ng hasn't been contacted in 21 days — consider reaching out today. 
-David Chong's policy renews in 7 days, schedule a call soon.
-
-📚 You're at 12 CPD points this month — just 3 more to hit your quota. 
-Check the Knowledge Base for a quick seminar to top up. Have a great day! 💪`;
+You are currently at 12 CPD points this month — 3 points away from your monthly quota.`;
 
 document.getElementById('briefing-text').innerText = briefing;

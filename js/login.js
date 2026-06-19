@@ -4,17 +4,17 @@ function handleLogin() {
   const errorMsg = document.getElementById('error-msg');
 
   if (email === '' || password === '') {
-    errorMsg.innerText = '⚠️ Please fill in both fields.';
+    errorMsg.innerText = 'Please fill in both fields.';
     return;
   }
 
-  if (email === 'sarah@aag.com' && password === 'password123') {
-    // ✅ Save login state
+  if (email === 'sarah@aag.com' && password === 'pw123') {
+    // Save login state
     localStorage.setItem('loggedIn', 'true');
     localStorage.setItem('userName', 'Sarah Ahmad');
-    // ✅ Go to homepage
+    // Go to homepage
     window.location.href = '../index.html';
   } else {
-    errorMsg.innerText = '❌ Incorrect email or password.';
+    errorMsg.innerText = 'Incorrect email or password.';
   }
 }
