@@ -12,7 +12,7 @@ function handleLogin() {
   // Fake login check (you can change this email/password)
   if (email === 'sarah@aag.com' && password === 'password123') {
     // ✅ Correct — go to homepage
-    window.location.href = 'index.html';
+    window.location.href = '../index.html';
   } else {
     // ❌ Wrong — show error
     errorMsg.innerText = '❌ Incorrect email or password.';
