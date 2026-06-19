@@ -3,18 +3,18 @@ function handleLogin() {
   const password = document.getElementById('password').value;
   const errorMsg = document.getElementById('error-msg');
 
-  // Check if fields are empty
   if (email === '' || password === '') {
     errorMsg.innerText = '⚠️ Please fill in both fields.';
     return;
   }
 
-  // Fake login check (you can change this email/password)
   if (email === 'sarah@aag.com' && password === 'password123') {
-    // ✅ Correct — go to homepage
+    // ✅ Save login state
+    localStorage.setItem('loggedIn', 'true');
+    localStorage.setItem('userName', 'Sarah Ahmad');
+    // ✅ Go to homepage
     window.location.href = '../index.html';
   } else {
-    // ❌ Wrong — show error
     errorMsg.innerText = '❌ Incorrect email or password.';
   }
 }

@@ -1,3 +1,15 @@
+// Check if user is logged in, if not send to login page
+if (!localStorage.getItem('loggedIn')) {
+  window.location.href = 'pages/login.html';
+}
+
+// Get username from storage
+const userName = localStorage.getItem('userName');
+if (userName) {
+  document.querySelector('.advisor-name') &&
+  (document.querySelector('.advisor-name').innerText = `Welcome, ${userName} 👋`);
+}
+
 // AI Morning Briefing
 const briefing = `Good morning Sarah! Here's your day at a glance — you have 3 meetings today. 
 Starting with John Lim at 10:00am for Retirement Planning, followed by the Tan Family 
