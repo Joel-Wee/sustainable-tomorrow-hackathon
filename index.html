@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fiduciary.AI - Live Hub</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>💼 Fiduciary.AI <span class="badge" style="background: var(--danger)">LIVE DEMO</span></h1>
+        <p class="subtitle">Real-Time Transcription & Automated Synthesis (Powered by Llama 3)</p>
+    </header>
+
+    <div class="main-layout">
+        <div class="meeting-panel">
+            <div class="control-panel">
+                <h3>🎙️ Meeting Controls</h3>
+                <div class="button-group">
+                    <button id="startMicBtn" onclick="startListening()">🔴 Start Meeting (Mic)</button>
+                    <button id="stopMicBtn" onclick="stopListening()" disabled style="background: var(--border)">⏹ Stop</button>
+                    <button id="processBtn" onclick="processTranscript()">⚡ Generate CRM Insights</button>
+                </div>
+                <div id="statusIndicator" class="status">Microphone standby...</div>
+            </div>
+
+            <div class="card">
+                <h3>Live Transcript</h3>
+                <textarea id="liveTranscript" placeholder="Meeting transcript will appear here in real-time..."></textarea>
+            </div>
+        </div>
+
+        <div id="resultDashboard" class="dashboard-panel">
+            <div class="card">
+                <h3>📝 Fiduciary File Memo</h3>
+                <textarea id="complianceMemo" readonly placeholder="Waiting for AI synthesis..."></textarea>
+            </div>
+            
+            <div class="card">
+                <h3>✅ Action Items</h3>
+                <div id="taskList" class="task-list">
+                    <p style="color: var(--text-muted); font-size: 0.9rem;">Tasks will populate here...</p>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>✉️ Client Follow-Up Draft</h3>
+                <textarea id="emailDraft" readonly style="min-height: 250px;"></textarea>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
