@@ -217,4 +217,5 @@ document.addEventListener('keydown', function(event) {
         // Remove pulse after 1 second
         setTimeout(() => p.classList.remove('animate-pulse'), 1000);
     }
-});
+}); 
+// 
