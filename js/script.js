@@ -15,5 +15,13 @@ document.getElementById('briefing-text').innerText = briefing;
 // Logout
 function handleLogout() {
   localStorage.removeItem('loggedIn');
-  window.location.href = 'pages/login.html';
+  
+  // Check if we're in the pages/ folder or root
+  const isInPagesFolder = window.location.pathname.includes('/pages/');
+  
+  if (isInPagesFolder) {
+    window.location.href = 'login.html';
+  } else {
+    window.location.href = 'pages/login.html';
+  }
 }
