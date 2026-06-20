@@ -1,9 +1,8 @@
-// --- State Variables ---
+// --- State Variables & DOM Elements ---
 let recognition = null;
 let isRecording = false;
 let finalTranscript = "";
 
-// --- DOM Elements ---
 const startBtn = document.getElementById('start-btn');
 const endBtn = document.getElementById('end-btn');
 const transcriptBox = document.getElementById('transcript-box');
@@ -13,9 +12,10 @@ const recordingPulseRing = document.getElementById('recording-pulse-ring');
 const audioVisualizer = document.getElementById('audio-visualizer');
 const callStatusText = document.getElementById('call-status-text');
 
-// --- 1. Speech Recognition Setup ---
+// --- 1. Speech Recognition Engine ---
 function initSpeechRecognition() {
     if (!('webkitSpeechRecognition' in window)) {
+        alert("Your browser does not support the Web Speech API. Please use Google Chrome.");
         return false;
     }
     
@@ -37,15 +37,15 @@ function initSpeechRecognition() {
             }
         }
 
-        // Update UI: Add finalized text to a paragraph
+        // Print final text
         if (currentFinal) {
             const p = document.createElement('p');
             p.className = "mb-2 text-slate-800";
-            p.innerHTML = `<strong class="text-blue-600">Sarah Ahmad (You):</strong> ${currentFinal}`;
+            p.innerHTML = `<strong class="text-blue-600">You:</strong> ${currentFinal}`;
             transcriptBox.appendChild(p);
         }
         
-        // Handle interim (grey, changing text)
+        // Print guessing text
         let interimSpan = document.getElementById('interim-span');
         if (!interimSpan) {
             interimSpan = document.createElement('span');
@@ -54,168 +54,138 @@ function initSpeechRecognition() {
             transcriptBox.appendChild(interimSpan);
         }
         interimSpan.innerText = interimTranscript;
-        
-        // Auto-scroll to bottom
         transcriptBox.scrollTop = transcriptBox.scrollHeight;
     };
 
-    recognition.onerror = (event) => {
-        console.error("Speech recognition error:", event.error);
-    };
-
     recognition.onend = () => {
-        // Restart if stopped unexpectedly, unless we manually pressed end
-        if (isRecording && recognition) { try { recognition.start(); } catch(e){} }
+        if (isRecording && recognition) { 
+            try { recognition.start(); } catch(e){} 
+        }
     };
     
     return true;
 }
 
 // --- 2. Button Handlers ---
-function startMeeting() {
-    // FORCE recording state to true immediately so Stage Magic ALWAYS works
-    isRecording = true; 
-    finalTranscript = "";
+window.startMeeting = function() {
+    const hasMicSupport = initSpeechRecognition();
+    if (!hasMicSupport) return;
     
-    // Update UI Buttons and Visualizers
+    isRecording = true; 
+    finalTranscript = ""; // Clear memory for a new call
+    
+    transcriptBox.innerHTML = '<p class="text-emerald-500 text-xs font-bold mb-4 uppercase tracking-wide">Microphone Active - Listening...</p>';
+    if(summaryBox) {
+        summaryBox.innerHTML = `
+            <div class="flex flex-col items-center justify-center h-full text-slate-400">
+                <i class="ph ph-brain text-4xl mb-2 opacity-50"></i>
+                <p class="text-xs text-center px-4">Summary will automatically generate when the call ends.</p>
+            </div>`;
+    }
+    
     startBtn.classList.add('hidden');
     endBtn.classList.remove('hidden');
-    recordingBadge.classList.remove('hidden');
-    recordingPulseRing.classList.remove('hidden');
-    audioVisualizer.classList.remove('hidden');
-    callStatusText.innerText = "Call in progress...";
+    if(recordingBadge) recordingBadge.classList.remove('hidden');
+    if(recordingPulseRing) recordingPulseRing.classList.remove('hidden');
+    if(audioVisualizer) audioVisualizer.classList.remove('hidden');
+    if(callStatusText) callStatusText.innerText = "Listening in progress...";
     
-    transcriptBox.innerHTML = ''; // Clear waiting text
-    
-    const hasMicSupport = initSpeechRecognition();
-    
-    if (hasMicSupport) {
-        try {
-            recognition.start();
-            transcriptBox.innerHTML = '<p class="text-emerald-500 text-xs font-bold mb-4 uppercase tracking-wide">Microphone Active - Listening...</p>';
-        } catch (e) {
-            console.error("Mic error", e);
-            transcriptBox.innerHTML = '<p class="text-amber-500 text-xs font-bold mb-4 uppercase tracking-wide">Browser Mic Blocked - Stage Magic Demo Mode Active (Press 1, 2, 3)</p>';
-        }
-    } else {
-        transcriptBox.innerHTML = '<p class="text-amber-500 text-xs font-bold mb-4 uppercase tracking-wide">Browser Mic Not Supported - Stage Magic Demo Mode Active (Press 1, 2, 3)</p>';
+    try {
+        recognition.start();
+    } catch (e) {
+        console.error("Microphone error:", e);
+        transcriptBox.innerHTML = '<p class="text-red-500 text-xs font-bold mb-4">Error: Could not access microphone.</p>';
     }
 }
 
-function endMeeting() {
+window.endMeeting = function() {
     isRecording = false;
     if(recognition) {
         try { recognition.stop(); } catch(e) {}
     }
     
-    // Update UI Buttons and Visualizers
     endBtn.classList.add('hidden');
     startBtn.classList.remove('hidden');
-    recordingBadge.classList.add('hidden');
-    recordingPulseRing.classList.add('hidden');
-    audioVisualizer.classList.add('hidden');
-    callStatusText.innerText = "Call ended";
+    if(recordingBadge) recordingBadge.classList.add('hidden');
+    if(recordingPulseRing) recordingPulseRing.classList.add('hidden');
+    if(audioVisualizer) audioVisualizer.classList.add('hidden');
+    if(callStatusText) callStatusText.innerText = "Call ended";
     startBtn.innerHTML = '<i class="ph ph-phone-call text-lg"></i> Start New Call';
     
-    // Remove interim span
     const interim = document.getElementById('interim-span');
     if(interim) interim.remove();
 
-    // Trigger Fake AI Summary
-    generateGeminiSummary(finalTranscript);
+    // Send the text to Python
+    generateCRMSummary(finalTranscript);
 }
 
-// --- 3. HARDCODED "OPTION 2" AI SUMMARY (100% Safe for Stage) ---
-async function generateGeminiSummary(transcriptText) {
-    if (!transcriptText.trim()) {
-        summaryBox.innerHTML = `<div class="p-4 bg-red-50 text-red-600 rounded-lg border border-red-100 text-sm">No speech detected to summarize. Use 1, 2, 3 keys to inject demo text.</div>`;
+// --- 3. THE FASTAPI / GEMINI BRIDGE ---
+async function generateCRMSummary(transcriptText) {
+    if (!summaryBox) return;
+
+    if (!transcriptText || transcriptText.trim() === "") {
+        summaryBox.innerHTML = `<p class="text-red-500 text-sm p-4 bg-red-50 rounded-lg">No speech detected to summarize.</p>`;
         return;
     }
 
-    // Show Loading State (The Shimmer)
+    // Shimmer Loading Animation
     summaryBox.innerHTML = `
         <div class="space-y-4">
-            <div class="h-4 w-3/4 rounded shimmer"></div>
-            <div class="h-4 w-full rounded shimmer"></div>
-            <div class="h-4 w-5/6 rounded shimmer"></div>
-            <div class="h-20 w-full rounded shimmer mt-4"></div>
-            <p class="text-xs text-center text-indigo-500 font-semibold animate-pulse mt-4">Gemini 2.5 is analyzing the conversation...</p>
+            <div class="h-4 w-3/4 rounded bg-slate-200 animate-pulse"></div>
+            <div class="h-4 w-full rounded bg-slate-200 animate-pulse"></div>
+            <div class="h-4 w-5/6 rounded bg-slate-200 animate-pulse"></div>
+            <div class="h-20 w-full rounded bg-slate-200 animate-pulse mt-4"></div>
+            <p class="text-xs text-center text-indigo-500 font-semibold animate-pulse mt-4">Gemini is analyzing the conversation...</p>
         </div>
     `;
 
-    // Wait exactly 2.5 seconds to simulate AI "thinking" time
-    setTimeout(() => {
-        // Hardcoded perfect summary based on your 1, 2, 3 keyboard script
-        const fakeAiHTML = `
-            <div class="prose prose-sm prose-slate max-w-none prose-headings:text-slate-800 prose-headings:font-bold prose-a:text-blue-600 prose-li:text-slate-600">
-                <h4>Executive Summary</h4>
-                <p>The client, John Doe, expressed concerns regarding tech sector volatility affecting his portfolio. Additionally, he requires immediate assistance restructuring his corporate tax setup before Q4 and needs a liquidity plan for his daughter's 2027 university tuition.</p>
-                
-                <h4>Key Concerns</h4>
-                <ul>
-                    <li>Portfolio exposure to recent tech sector market drops.</li>
-                    <li>Rapid startup growth requiring urgent corporate tax restructuring.</li>
-                    <li>Liquid cash requirements for daughter's university tuition in 2027.</li>
-                </ul>
-                
-                <h4>Action Items</h4>
-                <ul>
-                    <li>Review and rebalance current investment portfolio to reduce tech sector risk.</li>
-                    <li>Calculate projected tuition costs and set up a liquid education fund.</li>
-                    <li>Schedule a follow-up meeting to finalize the portfolio changes.</li>
-                </ul>
-                
-                <h4>Partner Referral</h4>
-                <ul>
-                    <li><strong>Recommended:</strong> Refer to <em>PartnerLink Corporate Tax Services</em> for the Q4 startup restructuring.</li>
-                </ul>
-            </div>
-            <button class="mt-6 w-full py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg text-sm font-semibold transition-colors flex justify-center items-center gap-2 border border-slate-300">
-                <i class="ph ph-floppy-disk"></i> Save to CRM
-            </button>
-        `;
-        
-        summaryBox.innerHTML = fakeAiHTML;
-    }, 2500); // 2.5 seconds
-}
+    try {
+        const response = await fetch('http://127.0.0.1:8000/api/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ transcript: transcriptText })
+        });
 
-// --- 4. HACKATHON STAGE MAGIC (Hidden Keyboard Shortcuts) ---
-document.addEventListener('keydown', function(event) {
-    // Only works if the meeting has started
-    if (!isRecording) return; 
-    
-    let clientLine = "";
-    
-    if (event.key === '1') {
-        clientLine = "Hi Sarah. Yes, I wanted to discuss my portfolio. I'm very worried about the recent tech sector drops.";
-    } else if (event.key === '2') {
-        clientLine = "Also, my startup is scaling fast. We need to restructure our corporate tax setup before Q4.";
-    } else if (event.key === '3') {
-        clientLine = "Lastly, Emma starts university in 2027. We need liquid cash ready for her tuition. Can you help plan that?";
+        if (!response.ok) throw new Error("Backend connection failed.");
+
+        const data = await response.json();
+
+        // Build the HTML using the JSON data
+        summaryBox.innerHTML = `
+            <div class="space-y-4 text-sm text-slate-800">
+                <div>
+                    <h4 class="font-bold text-indigo-600 border-b border-slate-200 pb-1 mb-2">Executive Summary</h4>
+                    <p>${data.compliance_summary}</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-indigo-600 border-b border-slate-200 pb-1 mb-2">Action Items</h4>
+                    <ul class="list-disc pl-5 space-y-1">
+                        ${data.action_items.map(item => `
+                            <li><strong>${item.assignee}:</strong> ${item.task}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+
+                <div class="mt-4 p-3 bg-indigo-50 border border-indigo-100 rounded-lg">
+                    <h4 class="font-bold text-indigo-900 text-xs uppercase mb-2">Draft Client Email</h4>
+                    <p class="whitespace-pre-line text-indigo-800 italic">${data.client_email_draft}</p>
+                </div>
+                
+                <button class="mt-4 w-full py-2 bg-slate-900 hover:bg-slate-800 text-white rounded-lg text-sm font-semibold transition-colors flex justify-center items-center gap-2">
+                    <i class="ph ph-floppy-disk"></i> Save to CRM
+                </button>
+            </div>
+        `;
+
+    } catch (error) {
+        console.error(error);
+        summaryBox.innerHTML = `
+            <div class="p-4 bg-red-50 text-red-600 rounded-lg border border-red-100 text-sm">
+                <p class="font-bold mb-1"><i class="ph ph-warning-circle"></i> Connection Failed</p>
+                <p class="text-xs text-red-500 mb-2">Could not connect to the Python backend.</p>
+                <p class="text-xs text-slate-500">Make sure your Uvicorn server is running on port 8000.</p>
+            </div>
+        `;
     }
-    
-    if (clientLine !== "") {
-        // Add to the final transcript so the check passes
-        finalTranscript += " " + clientLine + ". ";
-        
-        // Visually add it to the chat box
-        const p = document.createElement('p');
-        p.className = "mb-2 animate-pulse text-slate-800"; // Slight pulse so you know it worked
-        p.innerHTML = `<strong>John Doe (Client):</strong> ${clientLine}`;
-        
-        // Insert it right before the interim span if it exists
-        const interimSpan = document.getElementById('interim-span');
-        if (interimSpan) {
-            transcriptBox.insertBefore(p, interimSpan);
-        } else {
-            transcriptBox.appendChild(p);
-        }
-        
-        // Auto-scroll
-        transcriptBox.scrollTop = transcriptBox.scrollHeight;
-        
-        // Remove pulse after 1 second
-        setTimeout(() => p.classList.remove('animate-pulse'), 1000);
-    }
-}); 
-// 
+}
