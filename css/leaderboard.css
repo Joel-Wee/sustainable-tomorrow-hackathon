@@ -1,9 +1,7 @@
-
 body {
     font-family: 'Inter', sans-serif;
 }
 
-/* ---------- Dropdown panels (navbar profile + bell) ---------- */
 .dropdown-panel {
     transform-origin: top right;
     transition: opacity 0.18s ease, transform 0.18s ease;
@@ -19,18 +17,15 @@ body {
     transform: scale(1) translateY(0);
 }
 
-/* ---------- Generic icon button feedback ---------- */
 .icon-btn {
     transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
 }
 .icon-btn:active { transform: scale(0.92); }
 
-/* ---------- Nav tabs ---------- */
 .nav-tab {
     transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* ---------- Card entrance on load / refresh ---------- */
 .entrance {
     animation: cardIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
 }
@@ -39,7 +34,6 @@ body {
     to   { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Subtle highlight when a row's rank/score changes */
 .flash {
     animation: flash 1s ease;
 }
@@ -48,7 +42,6 @@ body {
     100% { background-color: transparent; }
 }
 
-/* ============ PODIUM (top 3) ============ */
 .podium {
     display: flex;
     align-items: flex-end;
@@ -71,7 +64,6 @@ body {
 
 .podium-card:hover { transform: translateY(-4px); }
 
-/* 1st place: raised, bigger, blue glow */
 .podium-first {
     transform: translateY(-22px);
     border-color: rgba(37, 99, 235, 0.35);
@@ -79,7 +71,6 @@ body {
 }
 .podium-first:hover { transform: translateY(-26px); }
 
-/* Empty slot (board has fewer than 3 people) */
 .podium-empty {
     background: transparent;
     border: 1px dashed rgb(203 213 225);
@@ -175,7 +166,6 @@ body {
     transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ============ LIST GRID (rank 4+) ============ */
 .lb-grid {
     display: grid;
     grid-template-columns: 64px 1.6fr 1.2fr 1.5fr 160px;
@@ -188,7 +178,6 @@ body {
 }
 .lb-row:hover { background-color: #f8fafc; }
 
-/* ============ RESPONSIVE ============ */
 @media (max-width: 1024px) {
     .lb-grid { grid-template-columns: 56px 1.6fr 1.2fr 150px; }
 }

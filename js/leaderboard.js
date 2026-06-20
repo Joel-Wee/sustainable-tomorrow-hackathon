@@ -1,13 +1,14 @@
 const SAMPLE_DATA = [
-  { id: 1, name: "Alvin Tan Wei Shen",   role: "Financial Advisor",          phone: "+60 12-345 6789", email: "alvin.tan@aag.com",   score: 90 },
-  { id: 2, name: "Farhan Hakimi",        role: "Principal Wealth Manager",   phone: "+60 13-987 6543", email: "farhan.h@aag.com",    score: 58 },
-  { id: 3, name: "Sarah Ahmad",          role: "Senior Advisor",             phone: "+60 17-234 5678", email: "sarah.ahmad@aag.com", score: 85 },
-  { id: 4, name: "Aisha Khan",           role: "Product Designer",           phone: "+60 19-876 5432", email: "aisha.khan@aag.com",  score: 79 },
-  { id: 5, name: "Liam Wong",            role: "Account Manager",            phone: "+60 11-1234 5678", email: "liam.wong@aag.com", score: 71 },
-  { id: 6, name: "Nora Cole",            role: "Support Specialist",         phone: "+60 11-1432 5678", email: "nora.cole@aag.com",  score: 64 },
-  { id: 7, name: "Omar Diaz",            role: "Financial Consultant",       phone: "+60 16-765 4321", email: "omar.diaz@aag.com",  score: 55 },
-  { id: 8, name: "Mia Park",             role: "Project Manager",            phone: "+60 18-210 9876", email: "mia.park@aag.com",   score: 40 },
+  { id: 1, name: "Alvin Tan Wei Shen",   role: "Financial Advisor",          phone: "+60 12-345 6789", email: "alvin.tan@mail.com",   score: 90 },
+  { id: 2, name: "Farhan Hakimi",        role: "Principal Wealth Manager",   phone: "+60 13-987 6543", email: "farhan.h@mail.com",    score: 58 },
+  { id: 3, name: "Sarah Ahmad",          role: "Senior Advisor",             phone: "+60 17-234 5678", email: "sarah.ahmad@mail.com", score: 85 },
+  { id: 4, name: "Aisha Khan",           role: "Product Designer",           phone: "+60 19-876 5432", email: "aisha.khan@mail.com",  score: 79 },
+  { id: 5, name: "Liam Wong",            role: "Account Manager",            phone: "+60 11-1234 5678", email: "liam.wong@mail.com", score: 71 },
+  { id: 6, name: "Nora Cole",            role: "Support Specialist",         phone: "+60 11-1432 5678", email: "nora.cole@mail.com",  score: 64 },
+  { id: 7, name: "Omar Diaz",            role: "Financial Consultant",       phone: "+60 16-765 4321", email: "omar.diaz@mail.com",  score: 55 },
+  { id: 8, name: "Mia Park",             role: "Project Manager",            phone: "+60 18-210 9876", email: "mia.park@mail.com",   score: 40 },
 ];
+
 
 const podiumEl  = document.getElementById("podium");
 const listEl    = document.getElementById("rank-list");
@@ -109,6 +110,6 @@ function updateLeaderboard(data) {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  // Directly fires off the local mock data instead of polling a broken route!
+  
   updateLeaderboard(SAMPLE_DATA);
 });

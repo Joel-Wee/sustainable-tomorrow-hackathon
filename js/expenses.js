@@ -1,48 +1,15 @@
-/* ============================================================
-   AAG ADVISORY - EXPENSE MANAGEMENT  (expenses.js)
-   ------------------------------------------------------------
-   Handles:
-     1. Navbar dropdowns (bell + profile)
-     2. Drag-and-drop / click receipt upload
-     3. Logging a new expense -> ledger
-     4. Live totals (monthly burn, budget %, tax-deductible)
-     5. Ledger search filtering
-   ------------------------------------------------------------
-   PYTHON BACKEND NOTES  (for your friend)
-   - The ledger lives in the `expenses` array below as a mock.
-   - To persist: POST the form fields to your endpoint and GET
-     the list back. Each expense object's shape:
-
-       {
-         id: number,
-         date: "2026-06-20",          // ISO yyyy-mm-dd
-         vendor: "HubSpot",
-         category: "CRM & AI Tools",
-         amount: 540.00,
-         payment: "Corporate Amex",
-         taxDeductible: true,
-         hasReceipt: true
-       }
-   ============================================================ */
-
-/* ------------------------------------------------------------
-   1) MOCK DATA  (replace with a GET from your backend)
-   ------------------------------------------------------------ */
-const OPERATIONAL_BUDGET_CAP = 21000;   // RM — monthly cap
+const OPERATIONAL_BUDGET_CAP = 21000;
 
 let expenses = [
   { id: 1, date: "2026-06-18", vendor: "HubSpot",            category: "CRM & AI Tools",     amount: 540.00, payment: "Corporate Amex",   taxDeductible: true,  hasReceipt: true  },
   { id: 2, date: "2026-06-17", vendor: "Opentable — Marble 8", category: "Client Meals",     amount: 320.50, payment: "Corporate Amex",   taxDeductible: true,  hasReceipt: true  },
   { id: 3, date: "2026-06-15", vendor: "AirAsia",             category: "Travel",            amount: 1280.00, payment: "Operating Account", taxDeductible: true, hasReceipt: true  },
-  { id: 4, date: "2026-06-14", vendor: "Adobe Creative Cloud", category: "Software",         amount: 89.90,  payment: "Corporate Amex",   taxDeductible: true,  hasReceipt: false },
+  { id: 4, date: "2026-06-14", vendor: "Adobe Creative Cloud", category: "Software",          amount: 89.90,  payment: "Corporate Amex",   taxDeductible: true,  hasReceipt: false },
   { id: 5, date: "2026-06-12", vendor: "SCICOM Licensing",     category: "Compliance Licensing", amount: 450.00, payment: "Operating Account", taxDeductible: true, hasReceipt: true },
   { id: 6, date: "2026-06-10", vendor: "Grab (client pickup)", category: "Travel",           amount: 42.30,  payment: "Corporate Amex",   taxDeductible: true,  hasReceipt: true  },
   { id: 7, date: "2026-06-08", vendor: "Officemate",           category: "Office Supplies",  amount: 156.80, payment: "Operating Account", taxDeductible: true,  hasReceipt: false },
 ];
 
-/* ------------------------------------------------------------
-   2) CATEGORY -> CSS PILL CLASS MAP
-   ------------------------------------------------------------ */
 const CATEGORY_CLASS = {
   "Software":            "cat-software",
   "Client Meals":        "cat-client-meals",
@@ -54,12 +21,8 @@ const CATEGORY_CLASS = {
   "Office Supplies":     "cat-office-supplies",
 };
 
-/* ------------------------------------------------------------
-   3) HELPERS
-   ------------------------------------------------------------ */
 const $ = (id) => document.getElementById(id);
 
-/** RM currency formatter -> "14,250.00" (no symbol; symbol is in markup). */
 function fmtMY(num) {
   return Number(num || 0).toLocaleString("en-MY", {
     minimumFractionDigits: 2,
@@ -67,7 +30,6 @@ function fmtMY(num) {
   });
 }
 
-/** "2026-06-18" -> "18 Jun 2026". */
 function fmtDate(iso) {
   if (!iso) return "—";
   const d = new Date(iso + "T00:00:00");
@@ -75,18 +37,13 @@ function fmtDate(iso) {
   return d.toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 }
 
-/** Escape text so vendor names can't inject HTML. */
 function escapeHTML(str = "") {
   const div = document.createElement("div");
   div.textContent = String(str);
   return div.innerHTML;
 }
 
-/* ------------------------------------------------------------
-   4) LIVE TOTALS  (Hero analytics)
-   ------------------------------------------------------------ */
 function recomputeTotals() {
-  // Total monthly burn = sum of this month's amounts
   const now = new Date();
   const monthly = expenses.filter(e => {
     const d = new Date(e.date + "T00:00:00");
@@ -94,13 +51,11 @@ function recomputeTotals() {
   });
   const burn = monthly.reduce((s, e) => s + Number(e.amount), 0);
 
-  // Tax-deductible total (quarter to date)
   const qStart = new Date(now.getFullYear(), Math.floor(now.getMonth() / 3) * 3, 1);
   const taxTotal = expenses
     .filter(e => e.taxDeductible && new Date(e.date + "T00:00:00") >= qStart)
     .reduce((s, e) => s + Number(e.amount), 0);
 
-  // Budget progress
   const pct = Math.min(100, Math.round((burn / OPERATIONAL_BUDGET_CAP) * 100));
 
   $("hero-burn").textContent = fmtMY(burn);
@@ -112,7 +67,6 @@ function recomputeTotals() {
   $("hero-budget-pct").textContent = pct;
   $("hero-budget-bar").style.width = pct + "%";
 
-  // Budget status pill + bar colour shift at thresholds
   const pill = $("budget-status-pill");
   const bar = $("hero-budget-bar");
   if (pct >= 90) {
@@ -130,9 +84,6 @@ function recomputeTotals() {
   }
 }
 
-/* ------------------------------------------------------------
-   5) LEDGER RENDERING
-   ------------------------------------------------------------ */
 function categoryPill(cat) {
   const cls = CATEGORY_CLASS[cat] || "cat-office-rent";
   return `<span class="cat-pill ${cls}"><i class="ph-fill ph-circle text-[6px]"></i>${escapeHTML(cat)}</span>`;
@@ -177,9 +128,6 @@ function renderLedger(filterText = "", highlightId = null) {
   `).join("");
 }
 
-/* ------------------------------------------------------------
-   6) RECEIPT UPLOAD (drag-drop + click)
-   ------------------------------------------------------------ */
 const dropZone = $("drop-zone");
 const fileInput = $("exp-receipt");
 const receiptName = $("receipt-name");
@@ -197,17 +145,15 @@ function showReceiptState(fileName) {
 
 function handleFile(file) {
   if (!file) return;
-  // accept images + pdf only
   const ok = file.type.startsWith("image/") || file.type === "application/pdf";
   if (!ok) {
     showToast("Please upload a PDF or image receipt.", "error");
     return;
   }
-  fileInput.files = dataTransfer(file);   // keep it accessible to the input
+  fileInput.files = dataTransfer(file);
   showReceiptState(file.name);
 }
 
-/** Place a single File into the input's FileList. */
 function dataTransfer(file) {
   const dt = new DataTransfer();
   dt.items.add(file);
@@ -234,9 +180,6 @@ dropZone.addEventListener("drop", (e) => {
   if (file) handleFile(file);
 });
 
-/* ------------------------------------------------------------
-   7) FORM SUBMIT -> log transaction
-   ------------------------------------------------------------ */
 const form = $("expense-form");
 
 form.addEventListener("submit", (e) => {
@@ -260,7 +203,6 @@ form.addEventListener("submit", (e) => {
     category,
     amount,
     payment,
-    // Simple deductible heuristic (your backend can override):
     taxDeductible: category !== "Client Meals" || amount <= 250,
     hasReceipt: receiptAttached,
   };
@@ -269,7 +211,6 @@ form.addEventListener("submit", (e) => {
   renderLedger($("ledger-search").value, newExpense.id);
   recomputeTotals();
 
-  // Reset
   form.reset();
   setDefaultDate();
   receiptAttached = false;
@@ -280,16 +221,10 @@ form.addEventListener("submit", (e) => {
   showToast(`Logged RM ${fmtMY(amount)} to ${vendor}.`, "success");
 });
 
-/* ------------------------------------------------------------
-   8) LEDGER SEARCH
-   ------------------------------------------------------------ */
 $("ledger-search").addEventListener("input", (e) => {
   renderLedger(e.target.value);
 });
 
-/* ------------------------------------------------------------
-   9) TOASTS
-   ------------------------------------------------------------ */
 function showToast(message, type = "success") {
   const container = $("toast-container");
   const tone = type === "error"
@@ -309,16 +244,11 @@ function showToast(message, type = "success") {
   }, 3200);
 }
 
-/* ------------------------------------------------------------
-   10) DEFAULTS
-   ------------------------------------------------------------ */
 function setDefaultDate() {
   const today = new Date().toISOString().split("T")[0];
   $("exp-date").value = today;
 }
-/* ------------------------------------------------------------
-   11) INIT
-   ------------------------------------------------------------ */
+
 document.addEventListener("DOMContentLoaded", () => {
   setDefaultDate();
   recomputeTotals();

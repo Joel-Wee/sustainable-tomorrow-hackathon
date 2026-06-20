@@ -1,4 +1,3 @@
-// --- State Variables & DOM Elements ---
 let recognition = null;
 let isRecording = false;
 let finalTranscript = "";
@@ -12,7 +11,6 @@ const recordingPulseRing = document.getElementById('recording-pulse-ring');
 const audioVisualizer = document.getElementById('audio-visualizer');
 const callStatusText = document.getElementById('call-status-text');
 
-// --- 1. Speech Recognition Engine ---
 function initSpeechRecognition() {
     if (!('webkitSpeechRecognition' in window)) {
         alert("Your browser does not support the Web Speech API. Please use Google Chrome.");
@@ -37,7 +35,6 @@ function initSpeechRecognition() {
             }
         }
 
-        // Print final text
         if (currentFinal) {
             const p = document.createElement('p');
             p.className = "mb-2 text-slate-800";
@@ -45,7 +42,6 @@ function initSpeechRecognition() {
             transcriptBox.appendChild(p);
         }
         
-        // Print guessing text
         let interimSpan = document.getElementById('interim-span');
         if (!interimSpan) {
             interimSpan = document.createElement('span');
@@ -66,13 +62,12 @@ function initSpeechRecognition() {
     return true;
 }
 
-// --- 2. Button Handlers ---
 window.startMeeting = function() {
     const hasMicSupport = initSpeechRecognition();
     if (!hasMicSupport) return;
     
     isRecording = true; 
-    finalTranscript = ""; // Clear memory for a new call
+    finalTranscript = ""; 
     
     transcriptBox.innerHTML = '<p class="text-emerald-500 text-xs font-bold mb-4 uppercase tracking-wide">Microphone Active - Listening...</p>';
     if(summaryBox) {
@@ -115,11 +110,9 @@ window.endMeeting = function() {
     const interim = document.getElementById('interim-span');
     if(interim) interim.remove();
 
-    // Send the text to Python
     generateCRMSummary(finalTranscript);
 }
 
-// --- 3. THE FASTAPI / GEMINI BRIDGE ---
 async function generateCRMSummary(transcriptText) {
     if (!summaryBox) return;
 
@@ -128,7 +121,6 @@ async function generateCRMSummary(transcriptText) {
         return;
     }
 
-    // Shimmer Loading Animation
     summaryBox.innerHTML = `
         <div class="space-y-4">
             <div class="h-4 w-3/4 rounded bg-slate-200 animate-pulse"></div>
@@ -150,7 +142,6 @@ async function generateCRMSummary(transcriptText) {
 
         const data = await response.json();
 
-        // Build the HTML using the JSON data
         summaryBox.innerHTML = `
             <div class="space-y-4 text-sm text-slate-800">
                 <div>

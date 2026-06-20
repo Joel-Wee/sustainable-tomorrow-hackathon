@@ -1,9 +1,7 @@
-// Redirect if not logged in
 if (!localStorage.getItem('loggedIn')) {
   window.location.href = 'pages/login.html';
 }
 
-// Morning Briefing
 const briefing = `Good morning, Sarah. You have 3 client meetings scheduled today — 
 John Lim at 10:00am for Retirement Planning, the Tan Family at 1:00pm for Estate Planning, 
 and ABC Corp at 4:00pm for Group Insurance. Two follow-ups require your attention: 
@@ -11,10 +9,6 @@ Sarah Ng has not been contacted in 21 days, and David Chong's policy renews in 7
 You are currently at 12 CPD points — 3 away from your monthly quota.`;
 
 document.getElementById('briefing-text').innerText = briefing;
-
-// ============================================================
-// INTERACTIVE CALENDAR
-// ============================================================
 
 const TIMES = ['8AM','9AM','10AM','11AM','12PM','1PM','2PM','3PM','4PM','5PM'];
 const DAYS = ['Monday','Tuesday','Wednesday','Thursday','Friday'];
@@ -28,7 +22,6 @@ const CATEGORY_STYLE = {
   'empty':          'bg-white hover:bg-blue-50 text-slate-300 hover:text-blue-400',
 };
 
-// Default schedule data
 let scheduleData = JSON.parse(localStorage.getItem('capsight_schedule')) || [
   { day: 0, time: 0, name: 'Email',          category: 'Email',          notes: '' },
   { day: 1, time: 0, name: 'Email',          category: 'Email',          notes: '' },
@@ -82,7 +75,6 @@ let scheduleData = JSON.parse(localStorage.getItem('capsight_schedule')) || [
   { day: 4, time: 9, name: 'Email',          category: 'Email',          notes: '' },
 ];
 
-// Week offset
 let weekOffset = 0;
 
 function getWeekDates(offset) {
@@ -103,12 +95,10 @@ function renderCalendar() {
   const body = document.getElementById('calendar-body');
   const label = document.getElementById('week-label');
 
-  // Week label
   const first = dates[0];
   const last = dates[4];
   label.textContent = `${first.toLocaleDateString('en-GB', { day:'numeric', month:'short' })} — ${last.toLocaleDateString('en-GB', { day:'numeric', month:'short', year:'numeric' })}`;
 
-  // Header
   const today = new Date();
   header.innerHTML = `
     <th class="bg-slate-800 text-white px-3 py-2.5 text-left font-semibold rounded-tl-lg text-xs">Time</th>
@@ -121,7 +111,6 @@ function renderCalendar() {
     }).join('')}
   `;
 
-  // Body
   body.innerHTML = TIMES.map((time, tIdx) => `
     <tr class="divide-x divide-slate-100">
       <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap text-xs">${time}</td>
@@ -146,11 +135,9 @@ function renderCalendar() {
   `).join('');
 }
 
-// Week navigation
 function prevWeek() { weekOffset--; renderCalendar(); }
 function nextWeek() { weekOffset++; renderCalendar(); }
 
-// Modal state
 let editingDay = null;
 let editingTime = null;
 
@@ -210,13 +197,10 @@ function saveTask() {
     return;
   }
 
-  // Remove existing task at that slot
   scheduleData = scheduleData.filter(t => !(t.day === day && t.time === time));
 
-  // Add new task
   scheduleData.push({ day, time, name, category, notes });
 
-  // Save to localStorage
   localStorage.setItem('capsight_schedule', JSON.stringify(scheduleData));
 
   closeTaskModal();
@@ -233,7 +217,6 @@ function deleteTask() {
   updateMeetingCount();
 }
 
-// Close modal on backdrop click
 document.getElementById('task-modal').addEventListener('click', (e) => {
   if (e.target === document.getElementById('task-modal')) closeTaskModal();
 });
@@ -242,13 +225,10 @@ function updateMeetingCount() {
   const today = new Date();
   const jsDay = today.getDay();
 
-  // Convert JS day to our index (0=Monday, 4=Friday)
   const todayIdx = jsDay - 1;
 
-  // Get the meetings today stat card
   const meetingCard = document.querySelector('[data-stat="meetings"]');
 
-  // Weekend = 0 meetings
   if (todayIdx < 0 || todayIdx > 4) {
     if (meetingCard) meetingCard.innerText = '0';
     return;
@@ -261,6 +241,5 @@ function updateMeetingCount() {
   if (meetingCard) meetingCard.innerText = count;
 }
 
-// Init calendar
 renderCalendar();
 updateMeetingCount();

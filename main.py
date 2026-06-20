@@ -7,7 +7,6 @@ import json
 
 app = FastAPI(title="CapsLock AI Backend")
 
-# Enable CORS so your frontend can talk to Python
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -16,7 +15,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# Initialize the Official SDK
 client = genai.Client(api_key="AQ.Ab8RN6JqK_reY2gaCd1GrUTDJawEeKCoC1Oc97QITfXfDMl0zQ")
 
 class TranscriptPayload(BaseModel):
@@ -28,7 +26,6 @@ async def analyze_meeting(payload: TranscriptPayload):
         raise HTTPException(status_code=400, detail="Transcript is empty.")
         
     try:
-        # Prompt telling Gemini exactly what JSON to build
         system_prompt = """
         You are a strict SEC compliance officer and financial advisor assistant. Analyze the transcript.
         You must reply with ONLY a raw JSON object using this exact structure:
@@ -39,7 +36,6 @@ async def analyze_meeting(payload: TranscriptPayload):
         }
         """
 
-        # Call Gemini 1.5 Flash
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=payload.transcript,
@@ -50,7 +46,6 @@ async def analyze_meeting(payload: TranscriptPayload):
             ),
         )
         
-        # Parse JSON and send to your dashboard
         return json.loads(response.text)
 
     except Exception as e:

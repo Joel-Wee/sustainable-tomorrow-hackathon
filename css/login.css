@@ -10,14 +10,12 @@ body {
   display: flex;
 }
 
-/* CONTAINER */
 .login-container {
   display: flex;
   width: 100%;
   height: 100vh;
 }
 
-/* LEFT SIDE */
 .login-left {
   width: 45%;
   color: white;
@@ -51,7 +49,6 @@ body {
   line-height: 1.7;
 }
 
-/* RIGHT SIDE */
 .login-right {
   width: 55%;
   background: #f0f2f5;
@@ -80,7 +77,6 @@ body {
   margin-bottom: 28px;
 }
 
-/* INPUT */
 .input-group {
   margin-bottom: 20px;
 }
@@ -108,7 +104,6 @@ body {
   border-color: #3b82f6;
 }
 
-/* ERROR MESSAGE */
 .error-msg {
   color: #ef4444;
   font-size: 13px;
@@ -116,7 +111,6 @@ body {
   min-height: 18px;
 }
 
-/* LOGIN BUTTON */
 .login-btn {
   width: 100%;
   padding: 13px;
@@ -135,7 +129,6 @@ body {
   background: #2563eb;
 }
 
-/* FORGOT */
 .forgot {
   text-align: center;
   font-size: 13px;

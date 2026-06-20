@@ -7,27 +7,25 @@
 
     <link rel="icon" href="../CapslockLogo.png" type="png">
 
-    <!-- Load Tailwind CSS for rapid styling -->
+   
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Load Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Load Phosphor Icons for premium fintech iconography -->
+   
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Link to your external CSS files -->
     <link rel="stylesheet" href="../css/expenses.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col relative">
 
-<!-- ============ NAVBAR (matches the AAG app) ============ -->
+
 <nav class="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16 gap-3">
 
-      <!-- LEFT: Logo -->
+      
       <a href="../index.html" class="flex items-center gap-2 shrink-0 group z-10">
         <img src="../CapslockLogo.png" alt="CapsLock logo"
              onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=AAG&background=2563eb&color=fff&rounded=true&bold=true';"
@@ -35,7 +33,7 @@
              <span class="text-base font-bold text-slate-900 tracking-tight" style="margin-left: -10px;">ap<span class="text-blue-600">Sight</span></span>
       </a>
 
-      <!-- CENTER: Navigation tabs -->
+      
       <div class="hidden md:flex flex-1 justify-center">
         <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
           <a href="../index.html" class="app-nav-link app-nav-idle">
@@ -56,7 +54,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: Bell + Profile -->
+      
         <div class="flex items-center gap-1 shrink-0 z-10">
         <div class="relative">
           <button id="bell-trigger" class="icon-btn relative w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:text-blue-600 hover:bg-blue-50">
@@ -122,17 +120,17 @@
 
     <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- HEADER -->
+       
         <div class="mb-8">
             <p class="text-xs font-bold text-emerald-600 uppercase tracking-widest mb-1">Finance</p>
             <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Expense Management</h1>
             <p class="text-slate-500 mt-1">Track, categorise, and audit your advisory practice spend.</p>
         </div>
 
-        <!-- ============ HERO: SUMMARY ANALYTICS ============ -->
+      
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
 
-            <!-- Card 1: Total Monthly Burn -->
+            
             <div class="entrance bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden" style="animation-delay:0ms">
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-11 h-11 rounded-xl bg-slate-900 flex items-center justify-center text-white">
@@ -147,7 +145,7 @@
                 <p class="text-xs text-slate-400 mt-3">Across <span id="hero-txn-count" class="font-semibold text-slate-600">0</span> transactions this month</p>
             </div>
 
-            <!-- Card 2: Operational Budget Progress -->
+            
             <div class="entrance bg-white border border-slate-200 rounded-2xl p-6 shadow-sm relative overflow-hidden" style="animation-delay:80ms">
                 <div class="flex items-start justify-between mb-4">
                     <div class="w-11 h-11 rounded-xl bg-blue-50 flex items-center justify-center text-blue-600 border border-blue-100">
@@ -167,7 +165,6 @@
                 <p class="text-xs text-slate-400 mt-3">RM <span id="hero-budget-used">14,250</span> of RM <span id="hero-budget-cap">21,000</span> used</p>
             </div>
 
-            <!-- Card 3: Tax-Deductible Total -->
             <div class="entrance bg-gradient-to-br from-emerald-500 via-emerald-600 to-emerald-700 rounded-2xl p-6 shadow-lg shadow-emerald-600/25 relative overflow-hidden" style="animation-delay:140ms">
                 <div class="absolute -top-8 -right-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                 <div class="absolute -bottom-10 -left-10 w-28 h-28 bg-white/10 rounded-full blur-2xl"></div>
@@ -180,17 +177,17 @@
                             Q2 2026
                         </span>
                     </div>
-                    <p class="text-emerald-50 text-sm font-medium">Tax-Deductible Total</p>
+                    <p class="text-emerald-50 text-sm font-medium">Claimable Total</p>
                     <p class="text-3xl font-black text-white tracking-tight mt-1">RM <span id="hero-tax">0.00</span></p>
                     <p class="text-emerald-100/80 text-xs mt-3">Accrued write-offs this fiscal quarter</p>
                 </div>
             </div>
         </div>
 
-        <!-- ============ MAIN GRID: FORM + LEDGER ============ -->
+       
         <div class="grid grid-cols-1 lg:grid-cols-5 gap-6">
 
-            <!-- ===== LEFT: LOG NEW EXPENSE FORM ===== -->
+       
             <section class="lg:col-span-2 entrance bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden" style="animation-delay:180ms">
                 <div class="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center gap-3">
                     <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
@@ -201,7 +198,7 @@
 
                 <form id="expense-form" class="p-6 space-y-5">
 
-                    <!-- Date -->
+                   
                     <div>
                         <label for="exp-date" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Date</label>
                         <div class="relative">
@@ -210,7 +207,7 @@
                         </div>
                     </div>
 
-                    <!-- Vendor -->
+                  
                     <div>
                         <label for="exp-vendor" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Vendor / Merchant</label>
                         <div class="relative">
@@ -219,7 +216,7 @@
                         </div>
                     </div>
 
-                    <!-- Amount -->
+                   
                     <div>
                         <label for="exp-amount" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Amount</label>
                         <div class="relative">
@@ -228,7 +225,7 @@
                         </div>
                     </div>
 
-                    <!-- Category (grouped) -->
+                    
                     <div>
                         <label for="exp-category" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Category</label>
                         <div class="relative">
@@ -252,7 +249,7 @@
                         </div>
                     </div>
 
-                    <!-- Payment Method -->
+                    
                     <div>
                         <label for="exp-payment" class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Payment Method</label>
                         <div class="relative">
@@ -267,7 +264,6 @@
                         </div>
                     </div>
 
-                    <!-- Drag-and-drop receipt upload -->
                     <div>
                         <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Receipt</label>
                         <div id="drop-zone" class="drop-zone">
@@ -281,7 +277,6 @@
                         </div>
                     </div>
 
-                    <!-- Submit -->
                     <button type="submit" class="submit-btn">
                         <i class="ph-bold ph-check-circle text-lg"></i>
                         Log Transaction
@@ -289,7 +284,6 @@
                 </form>
             </section>
 
-            <!-- ===== RIGHT: AUDIT LEDGER ===== -->
             <section class="lg:col-span-3 entrance bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden" style="animation-delay:240ms">
                 <div class="px-6 py-4 border-b border-slate-200 bg-slate-50 flex items-center justify-between gap-3">
                     <div class="flex items-center gap-3 min-w-0">
@@ -319,7 +313,7 @@
                             </tr>
                         </thead>
                         <tbody id="ledger-body">
-                            <!-- rows injected by expenses.js -->
+                            
                         </tbody>
                     </table>
                 </div>
@@ -335,10 +329,9 @@
         </div>
     </main>
 
-    <!-- Notification Toast Container -->
+   
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
 
-    <!-- Link to your external JS file -->
      <script src="../js/nav.js"></script>
     <script src="../js/expenses.js"></script>
 </body>

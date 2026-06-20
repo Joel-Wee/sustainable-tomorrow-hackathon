@@ -5,26 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CapsLock — AI Listener</title>
     
-    <!-- Load Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Load Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <!-- Load Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     
-    <!-- Link to your external CSS files -->
      <link rel="stylesheet" href="../css/ai-listener.css">
     <link rel="stylesheet" href="../css/style.css">
     
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col relative overflow-x-hidden">
 
-  <!-- NAVBAR -->
  <nav class="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16 gap-3">
 
-      <!-- LEFT: Logo -->
       <a href="../index.html" class="flex items-center gap-2 shrink-0 group z-10">
         <img src="../CapslockLogo.png" alt="CapsLock logo"
              onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=CL&background=2563eb&color=fff&rounded=true&bold=true';"
@@ -32,7 +26,6 @@
              <span class="text-base font-bold text-slate-900 tracking-tight" style="margin-left: -10px;">ap<span class="text-blue-600">Sight</span></span>
       </a>
 
-      <!-- CENTER: Navigation tabs -->
       <div class="hidden md:flex flex-1 justify-center">
         <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
           <a href="../index.html" class="app-nav-link app-nav-idle">
@@ -53,7 +46,6 @@
         </div>
       </div>
 
-      <!-- RIGHT: Bell + Profile -->
       <div class="flex items-center gap-1 shrink-0 z-10">
         <div class="relative">
           <button id="bell-trigger" class="icon-btn relative w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:text-blue-600 hover:bg-blue-50">
@@ -117,7 +109,6 @@
   </div>
 </nav>
 
-    <!-- MAIN AI LISTENER CONTENT -->
     <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex flex-col h-[calc(100vh-64px)]">
         
         <div class="flex justify-between items-end mb-4">
@@ -128,7 +119,6 @@
                 <p class="text-slate-500 text-sm mt-1">Real-time transcription and automatic CRM summarization via Gemini.</p>
             </div>
             
-            <!-- HACKATHON STAGE MAGIC HINT -->
             <div class="flex gap-2">
                 <div class="px-3 py-1.5 text-xs font-semibold bg-indigo-50 text-indigo-600 border border-indigo-200 rounded-md flex items-center gap-1 shadow-sm">
                     <i class="ph ph-keyboard"></i>
@@ -136,13 +126,10 @@
             </div>
         </div>
 
-        <!-- VOICE CALL DASHBOARD -->
         <div class="bg-slate-900 rounded-2xl p-5 shadow-lg border border-slate-800 flex flex-col sm:flex-row justify-between items-center gap-6 mb-6">
-            <!-- Client Info -->
             <div class="flex items-center gap-4 w-full sm:w-auto">
                <div class="w-14 h-14 rounded-full bg-slate-800 flex items-center justify-center border-2 border-slate-700 relative shrink-0">
                    <i class="ph ph-user text-2xl text-slate-400"></i>
-                   <!-- Pulse ring when active -->
                    <div id="recording-pulse-ring" class="absolute inset-0 rounded-full border border-red-500 recording-pulse hidden"></div>
                </div>
                <div>
@@ -156,7 +143,6 @@
                </div>
             </div>
 
-            <!-- Audio Waves (CSS Animation) -->
             <div id="audio-visualizer" class="hidden flex items-center gap-1.5 h-8">
                <div class="w-1.5 bg-blue-500 rounded-full h-full animate-[wave_1s_ease-in-out_infinite]"></div>
                <div class="w-1.5 bg-indigo-500 rounded-full h-3/4 animate-[wave_1.2s_ease-in-out_infinite_0.1s]"></div>
@@ -167,7 +153,6 @@
                <div class="w-1.5 bg-purple-500 rounded-full h-full animate-[wave_1.0s_ease-in-out_infinite_0.25s]"></div>
             </div>
 
-            <!-- Controls -->
             <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
                 <button class="w-10 h-10 rounded-full bg-slate-800 text-white hover:bg-slate-700 transition flex items-center justify-center">
                     <i class="ph ph-microphone"></i>
@@ -181,10 +166,8 @@
             </div>
         </div>
 
-        <!-- 2-COLUMN GRID: TRANSCRIPT & SUMMARY -->
         <div class="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 min-h-0">
             
-            <!-- LIVE TRANSCRIPT -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col h-full">
                 <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50 rounded-t-2xl">
                     <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
@@ -199,7 +182,6 @@
                 </div>
             </div>
 
-            <!-- GEMINI AI SUMMARY -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 flex flex-col h-full relative overflow-hidden">
                 <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-blue-400 via-indigo-500 to-purple-500"></div>
                 <div class="px-4 py-3 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
@@ -219,9 +201,7 @@
         </div>
     </main>
 
-    <!-- External JS logic -->
      <script src="../js/nav.js"></script>
     <script src="../js/ai-listener.js"></script>
 </body>
 </html>
-<!--  -->

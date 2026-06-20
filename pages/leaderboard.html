@@ -6,28 +6,22 @@
     <title>AAG Advisory - Team Leaderboard</title>
 
     <link rel="icon" href="../CapslockLogo.png" type="png">
-
-    <!-- Tailwind CSS — same stack as the rest of the AAG app -->
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Inter Font -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Phosphor Icons -->
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Custom styles (animations + podium + dropdowns) -->
     <link rel="stylesheet" href="../css/leaderboard.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col relative">
 
-    <!-- ============ NAVBAR (matches the AAG app) ============ -->
  <nav class="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16 gap-3">
 
-      <!-- LEFT: Logo -->
+      
       <a href="../index.html" class="flex items-center gap-2 shrink-0 group z-10">
         <img src="../CapslockLogo.png" alt="CapsLock logo"
              onerror="this.onerror=null;this.src='https://ui-avatars.com/api/?name=CL&background=2563eb&color=fff&rounded=true&bold=true';"
@@ -35,7 +29,7 @@
              <span class="text-base font-bold text-slate-900 tracking-tight" style="margin-left: -10px;">ap<span class="text-blue-600">Sight</span></span>
       </a>
 
-      <!-- CENTER: Navigation tabs -->
+      
       <div class="hidden md:flex flex-1 justify-center">
         <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
           <a href="../index.html" class="app-nav-link app-nav-idle">
@@ -56,7 +50,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: Bell + Profile -->
+    
       <div class="flex items-center gap-1 shrink-0 z-10">
         <div class="relative">
           <button id="bell-trigger" class="icon-btn relative w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:text-blue-600 hover:bg-blue-50">
@@ -120,10 +114,10 @@
   </div>
 </nav>
 
-    <!-- ============ MAIN ============ -->
+    
     <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- HEADER -->
+        
         <div class="flex items-end justify-between flex-wrap gap-4 mb-8">
             <div>
                 <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Performance</p>
@@ -138,10 +132,10 @@
             </div>
         </div>
 
-        <!-- PODIUM (top 3) — injected by script.js -->
+        
         <section id="podium" class="podium mb-10" aria-label="Top 3 advisors"></section>
 
-        <!-- RANK LIST (4+) -->
+        
         <section class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden">
             <div class="lb-grid lb-grid-header px-6 py-3.5 border-b border-slate-200 bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-400">
                 <span>Rank</span>

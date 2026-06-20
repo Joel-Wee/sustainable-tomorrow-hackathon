@@ -7,16 +7,16 @@
 
     <link rel="icon" href="../CapslockLogo.png" type="png">
 
-    <!-- Load Tailwind CSS for rapid styling -->
+  
     <script src="https://cdn.tailwindcss.com"></script>
 
-    <!-- Load Inter Font -->
+   
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-    <!-- Load Phosphor Icons for premium fintech iconography -->
+  
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
 
-    <!-- Link to your external CSS file -->
+    
     <link rel="stylesheet" href="../css/learning-style.css">
     <link rel="stylesheet" href="../css/style.css">
 </head>
@@ -26,13 +26,13 @@
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="relative flex items-center justify-between h-16 gap-3">
 
-      <!-- LEFT: Logo -->
+      
       <a href="../index.html" class="flex items-center gap-2 shrink-0 group z-10">
         <img src="../CapslockLogo.png" alt="CapsLock logo" class="h-9 w-9 object-contain group-hover:scale-105 transition-transform">
         <span class="text-base font-bold text-slate-900 tracking-tight" style="margin-left: -10px;">ap<span class="text-blue-600">Sight</span></span>
       </a>
 
-      <!-- CENTER: Navigation tabs -->
+      
       <div class="hidden md:flex flex-1 justify-center">
         <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-lg border border-slate-200">
           <a href="../index.html" class="app-nav-link app-nav-idle">
@@ -53,7 +53,7 @@
         </div>
       </div>
 
-      <!-- RIGHT: Bell + Profile -->
+      
       <div class="flex items-center gap-1 shrink-0 z-10">
         <div class="relative">
           <button id="bell-trigger" class="icon-btn relative w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:text-blue-600 hover:bg-blue-50">
@@ -119,18 +119,18 @@
 
     <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-        <!-- HEADER -->
+        
         <div class="mb-8">
             <h1 id="page-title" class="text-2xl font-bold text-slate-900 tracking-tight">CPD Dashboard</h1>
             <p id="page-subtitle" class="text-slate-500 mt-1">Track your 2026 requirements and explore the knowledge base.</p>
         </div>
 
-        <!-- ============ PANEL: KNOWLEDGE BASE ============ -->
+        
         <section id="panel-knowledge" class="tab-panel">
 
-            <!-- TOP DASHBOARD GRID -->
+         
             <div class="grid grid-cols-1 lg:grid-cols-4 gap-6 mb-10">
-                <!-- Left: Upcoming Workshops -->
+               
                 <div class="entrance bg-white border border-slate-200 rounded-2xl p-5 shadow-sm lg:col-span-1" style="animation-delay:0ms">
                     <h2 class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-4">Upcoming Workshops</h2>
                     <div class="space-y-3">
@@ -155,7 +155,6 @@
                     </div>
                 </div>
 
-                <!-- Center: The Progress Bar -->
                 <div class="entrance bg-white border border-slate-200 rounded-2xl p-6 shadow-sm lg:col-span-2 flex flex-col justify-center relative overflow-hidden" style="animation-delay:80ms">
                     <div class="absolute top-0 right-0 w-32 h-32 bg-blue-500/10 blur-3xl rounded-full"></div>
                     <div class="flex justify-between items-end mb-4 relative z-10">
@@ -172,7 +171,7 @@
                     </div>
                 </div>
 
-                <!-- Right: The Point Circle Badge (stand-out treatment) -->
+                
                 <div class="entrance bg-gradient-to-br from-blue-600 via-blue-600 to-blue-800 rounded-2xl p-6 shadow-lg shadow-blue-600/25 lg:col-span-1 flex flex-col items-center justify-center relative overflow-hidden" style="animation-delay:140ms">
                     <div class="absolute -top-8 -right-8 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
                     <div class="absolute -bottom-10 -left-10 w-28 h-28 bg-white/10 rounded-full blur-2xl"></div>
@@ -194,7 +193,7 @@
                 </div>
             </div>
 
-            <!-- COURSE LIBRARY HEADER + SEARCH (same row, stand-out treatment) -->
+           
             <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-6">
                 <div>
                     <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Browse</p>
@@ -213,7 +212,7 @@
             </div>
 
             <div id="course-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Card 1: Risk Management (CLICKABLE) -->
+              
                 <div id="card-risk" onclick="openModal()" class="course-card entrance bg-white border border-blue-500/30 rounded-xl p-6 hover:border-blue-500 cursor-pointer transition-all group relative overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5" style="animation-delay:0ms">
                     <div id="status-risk" class="absolute top-4 right-4 bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded font-bold border border-blue-100">
                         +4 Pts
@@ -229,7 +228,6 @@
                     </div>
                 </div>
 
-                <!-- Card 2: Wealth Accumulation (LOCKED) -->
                 <div onclick="handleLockedClick('Wealth Accumulation')" class="course-card entrance bg-slate-50 border border-slate-200 rounded-xl p-6 opacity-75 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-not-allowed relative overflow-hidden shadow-sm" style="animation-delay:60ms">
                     <div class="absolute top-4 right-4 bg-slate-200 text-slate-500 text-xs px-2 py-1 rounded font-medium"><i class="ph ph-lock mr-1"></i> Locked</div>
                     <div class="w-10 h-10 rounded-lg bg-slate-200 flex items-center justify-center mb-4 text-slate-500">
@@ -239,7 +237,6 @@
                     <p class="text-sm text-slate-500">Advanced strategies for high-net-worth portfolio diversification and growth.</p>
                 </div>
 
-                <!-- Card 3: Retirement Planning (LOCKED) -->
                 <div onclick="handleLockedClick('Retirement Planning')" class="course-card entrance bg-slate-50 border border-slate-200 rounded-xl p-6 opacity-75 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-not-allowed relative overflow-hidden shadow-sm" style="animation-delay:120ms">
                     <div class="absolute top-4 right-4 bg-slate-200 text-slate-500 text-xs px-2 py-1 rounded font-medium"><i class="ph ph-lock mr-1"></i> Locked</div>
                     <div class="w-10 h-10 rounded-lg bg-slate-200 flex items-center justify-center mb-4 text-slate-500">
@@ -249,7 +246,7 @@
                     <p class="text-sm text-slate-500">Navigating CPF regulations and structuring private annuities for clients.</p>
                 </div>
 
-                <!-- Card 4: Estate Planning (LOCKED) -->
+               
                 <div onclick="handleLockedClick('Estate Planning')" class="course-card entrance bg-slate-50 border border-slate-200 rounded-xl p-6 opacity-75 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-not-allowed relative overflow-hidden shadow-sm" style="animation-delay:180ms">
                     <div class="absolute top-4 right-4 bg-slate-200 text-slate-500 text-xs px-2 py-1 rounded font-medium"><i class="ph ph-lock mr-1"></i> Locked</div>
                     <div class="w-10 h-10 rounded-lg bg-slate-200 flex items-center justify-center mb-4 text-slate-500">
@@ -259,7 +256,6 @@
                     <p class="text-sm text-slate-500">Fundamentals of will writing, trust formation, and wealth transfer.</p>
                 </div>
 
-                <!-- Card 5: Certifications (LOCKED) -->
                 <div onclick="handleLockedClick('Certifications')" class="course-card entrance bg-slate-50 border border-slate-200 rounded-xl p-6 opacity-75 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-not-allowed relative overflow-hidden shadow-sm" style="animation-delay:240ms">
                     <div class="absolute top-4 right-4 bg-slate-200 text-slate-500 text-xs px-2 py-1 rounded font-medium"><i class="ph ph-lock mr-1"></i> Locked</div>
                     <div class="w-10 h-10 rounded-lg bg-slate-200 flex items-center justify-center mb-4 text-slate-500">
@@ -269,7 +265,7 @@
                     <p class="text-sm text-slate-500">Upload external seminar tickets to claim your manual CPD points.</p>
                 </div>
 
-                <!-- Card 6: Level 2 Requirements (LOCKED) -->
+                
                 <div onclick="handleLockedClick('Level 2 Requirements')" class="course-card entrance bg-slate-50 border border-slate-200 rounded-xl p-6 opacity-75 grayscale hover:grayscale-0 hover:opacity-100 transition-all cursor-not-allowed relative overflow-hidden shadow-sm" style="animation-delay:300ms">
                     <div class="absolute top-4 right-4 bg-slate-200 text-slate-500 text-xs px-2 py-1 rounded font-medium"><i class="ph ph-lock mr-1"></i> Locked</div>
                     <div class="w-10 h-10 rounded-lg bg-slate-200 flex items-center justify-center mb-4 text-slate-500">
@@ -280,7 +276,7 @@
                 </div>
             </div>
 
-            <!-- Empty search state -->
+          
             <div id="no-results" class="hidden text-center py-16">
                 <div class="w-14 h-14 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-4">
                     <i class="ph ph-magnifying-glass text-2xl"></i>
@@ -290,7 +286,7 @@
             </div>
         </section>
 
-        <!-- ============ PANEL: ANNOUNCEMENTS ============ -->
+       
         <section id="panel-announcements" class="tab-panel hidden">
             <div class="space-y-4 max-w-3xl">
                 <div class="bg-white border-l-4 border-blue-600 border-y border-r border-slate-200 rounded-r-xl p-5 shadow-sm flex gap-4 hover:shadow-md transition-shadow">
@@ -334,7 +330,6 @@
             </div>
         </section>
 
-        <!-- ============ PANEL: PROACTIVE FOLLOW-UPS ============ -->
         <section id="panel-followups" class="tab-panel hidden">
             <div class="flex items-center justify-between mb-5 max-w-3xl">
                 <p class="text-sm text-slate-500"><span id="followup-remaining" class="font-semibold text-slate-900">4</span> client touchpoints due this week</p>
@@ -384,10 +379,10 @@
         </section>
     </main>
 
-    <!-- THE MODAL (Hidden by default) -->
+    
     <div id="course-modal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm z-50 flex items-center justify-center opacity-0 invisible">
         <div class="modal-content bg-white border border-slate-200 w-full max-w-2xl rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[90vh]">
-            <!-- Modal Header -->
+          
             <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center bg-slate-50">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100">
@@ -400,9 +395,9 @@
                 </button>
             </div>
 
-            <!-- Modal Body -->
+          
             <div class="p-6 overflow-y-auto">
-                <!-- Mock Video Player -->
+              
                 <div class="w-full aspect-video bg-slate-100 rounded-xl border border-slate-200 mb-6 flex flex-col items-center justify-center relative group">
                     <img src="https://placehold.co/800x450/f8fafc/475569?text=Corporate+Risk+Webinar" alt="Video Placeholder" class="absolute inset-0 w-full h-full object-cover rounded-xl opacity-90">
                     <button class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center text-white z-10 hover:scale-110 transition-transform shadow-lg shadow-blue-600/30">
@@ -425,7 +420,7 @@
                 </div>
             </div>
 
-            <!-- Modal Footer -->
+           
             <div class="px-6 py-4 border-t border-slate-200 bg-slate-50 flex justify-end gap-3">
                 <button onclick="closeModal()" class="px-4 py-2 rounded-lg text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-200 transition-colors">
                     Cancel
@@ -438,10 +433,10 @@
         </div>
     </div>
 
-    <!-- Notification Toast Container -->
+    
     <div id="toast-container" class="fixed bottom-6 right-6 z-50 flex flex-col gap-3"></div>
 
-    <!-- Link to your external JS file -->
+  
     <script src="../js/nav.js"></script>
     <script src="../js/learning.js"></script>
 </body>

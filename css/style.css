@@ -2,7 +2,6 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* Card entrance animation */
 .entrance {
   animation: cardIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) backwards;
 }
@@ -11,7 +10,6 @@ body {
   to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
-/* Dropdown panels */
 .dropdown-panel {
   transform-origin: top right;
   transition: opacity 0.18s ease, transform 0.18s ease;
@@ -26,7 +24,7 @@ body {
   transform: scale(1) translateY(0) !important;
   pointer-events: auto !important;
 }
-/* App Nav Links */
+
 .app-nav-link {
   display: flex;
   align-items: center;
