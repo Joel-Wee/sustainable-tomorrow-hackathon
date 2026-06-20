@@ -4,349 +4,417 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CapsLock — Advisory Platform</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="bg-slate-50 text-slate-900 min-h-screen flex flex-col">
 
   <!-- NAVBAR -->
-  <nav class="navbar">
-    <div class="nav-left">
-      <div class="logo">CapsLock</div>
-      <a href="#">Home</a>
-      <a href="#">Clients</a>
-      <a href="#">Expenses</a>
-      <a href="#">Learning</a>
-      <a href="#">Partners</a>
-    </div>
-    <div class="nav-right">
-      <div class="notif-bell">
-        <span class="notif-count">3</span>
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
-          <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
-        </svg>
+  <nav class="border-b border-slate-200 bg-white/80 backdrop-blur-md sticky top-0 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 gap-3">
+
+        <!-- Left: Logo + Nav Links -->
+        <div class="flex items-center gap-6">
+          <div class="text-lg font-bold text-slate-900 tracking-tight">
+            Caps<span class="text-blue-600">Lock</span>
+          </div>
+          <div class="hidden md:flex items-center gap-1">
+            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-blue-600 bg-blue-50">Home</a>
+            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors">Clients</a>
+            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors">Expenses</a>
+            <a href="pages/learning.html" class="px-3 py-2 rounded-md text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors">Learning</a>
+            <a href="#" class="px-3 py-2 rounded-md text-sm font-medium text-slate-500 hover:text-slate-900 hover:bg-slate-100 transition-colors">Partners</a>
+          </div>
+        </div>
+
+        <!-- Right: Bell + Avatar -->
+        <div class="flex items-center gap-3">
+          <div class="relative">
+            <button id="bell-trigger" class="w-10 h-10 rounded-lg flex items-center justify-center text-slate-500 hover:text-blue-600 hover:bg-blue-50 transition-colors">
+              <i class="ph ph-bell text-xl"></i>
+              <span class="absolute top-2 right-2 w-2 h-2 bg-blue-600 rounded-full ring-2 ring-white"></span>
+            </button>
+
+            <!-- Bell Dropdown -->
+            <div id="bell-dropdown" class="dropdown-panel hidden-panel absolute top-full right-0 mt-2 w-80 bg-white border border-slate-200 rounded-xl shadow-lg overflow-hidden z-50">
+              <div class="px-4 py-3 border-b border-slate-100 bg-slate-50 flex items-center justify-between">
+                <p class="text-sm font-bold text-slate-900">Notifications</p>
+                <span class="text-xs text-blue-600 font-medium">3 new</span>
+              </div>
+              <div class="divide-y divide-slate-100">
+                <div class="px-4 py-3 flex gap-3 hover:bg-slate-50 transition-colors">
+                  <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
+                    <i class="ph ph-trophy text-sm"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-900 font-medium">CPD Points Updated — 12 pts</p>
+                    <p class="text-xs text-slate-400 mt-0.5">Just now</p>
+                  </div>
+                </div>
+                <div class="px-4 py-3 flex gap-3 hover:bg-slate-50 transition-colors">
+                  <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
+                    <i class="ph ph-calendar-check text-sm"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-900 font-medium">New Meeting Booked by Client</p>
+                    <p class="text-xs text-slate-400 mt-0.5">3 hours ago</p>
+                  </div>
+                </div>
+                <div class="px-4 py-3 flex gap-3 hover:bg-slate-50 transition-colors">
+                  <div class="w-8 h-8 rounded-lg bg-red-50 text-red-500 flex items-center justify-center shrink-0 border border-red-100">
+                    <i class="ph ph-warning text-sm"></i>
+                  </div>
+                  <div>
+                    <p class="text-sm text-slate-900 font-medium">Expense Report Due This Friday</p>
+                    <p class="text-xs text-slate-400 mt-0.5">2 days ago</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Avatar -->
+          <div class="relative">
+            <button id="profile-trigger" class="flex items-center gap-2.5 group">
+              <div class="w-9 h-9 rounded-full bg-blue-600 text-white flex items-center justify-center font-bold text-sm ring-2 ring-slate-200 group-hover:ring-blue-400 transition-all">SA</div>
+              <div class="hidden sm:block text-left">
+                <p class="text-sm font-semibold text-slate-900 leading-tight">Sarah Ahmad</p>
+                <p class="text-xs text-slate-500 leading-tight">Senior Advisor</p>
+              </div>
+              <i class="ph ph-caret-down hidden sm:block text-slate-400 text-xs"></i>
+            </button>
+
+            <!-- Profile Dropdown -->
+            <div id="profile-dropdown" class="dropdown-panel hidden-panel absolute top-full right-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-lg py-2 z-50">
+              <a href="#" class="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors"><i class="ph ph-user-circle text-base"></i> My Profile</a>
+              <a href="#" class="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-600 hover:bg-blue-50 hover:text-blue-600 transition-colors"><i class="ph ph-gear-six text-base"></i> Settings</a>
+              <div class="h-px bg-slate-100 my-1.5"></div>
+              <a href="#" onclick="handleLogout()" class="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-600 hover:bg-red-50 hover:text-red-600 transition-colors"><i class="ph ph-sign-out text-base"></i> Sign out</a>
+            </div>
+          </div>
+        </div>
+
       </div>
-      <div class="avatar">SA</div>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-content">
-      <h1>Welcome back, Sarah Ahmad</h1>
-      <p id="hero-date">Friday, 20 June 2026</p>
-    </div>
-    <div class="hero-stats">
-      <div class="stat">
-        <div class="stat-number">3</div>
-        <div class="stat-label">Meetings Today</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-number">12</div>
-        <div class="stat-label">CPD Points</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-number">2</div>
-        <div class="stat-label">Follow Ups Due</div>
-      </div>
-      <div class="stat-divider"></div>
-      <div class="stat">
-        <div class="stat-number">5</div>
-        <div class="stat-label">New Announcements</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- QUICK NAV -->
-  <div class="quick-nav">
-    <div class="quick-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-      <span>Calendar</span>
-    </div>
-    <div class="quick-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
-      <span>Clients</span>
-    </div>
-    <div class="quick-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
-      <span>Expenses</span>
-    </div>
-    <div class="quick-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
-      <span>Learning</span>
-    </div>
-    <div class="quick-btn">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path></svg>
-      <span>Partners</span>
-    </div>
-  </div>
-
   <!-- MAIN -->
-  <div class="main">
+  <main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
-    <!-- MORNING BRIEFING -->
-    <div class="card briefing-card">
-      <div class="card-header">
-        <span class="card-title">AI Morning Briefing</span>
-        <span class="badge-blue">AI Powered</span>
-      </div>
-      <p id="briefing-text">Loading your briefing...</p>
+    <!-- PAGE HEADER -->
+    <div class="mb-8">
+      <h1 class="text-2xl font-bold text-slate-900 tracking-tight">Good morning, Sarah Ahmad</h1>
+      <p class="text-slate-500 mt-1">Friday, 20 June 2026 — Here's your day at a glance.</p>
     </div>
 
-    <!-- ROW 2: CALENDAR + FOLLOW UPS -->
-    <div class="row">
+    <!-- STATS ROW -->
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" style="animation-delay:0ms">
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Meetings Today</p>
+        <p class="text-3xl font-black text-blue-600">3</p>
+      </div>
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" style="animation-delay:60ms">
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">CPD Points</p>
+        <p class="text-3xl font-black text-blue-600">12</p>
+      </div>
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" style="animation-delay:120ms">
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Follow Ups Due</p>
+        <p class="text-3xl font-black text-red-500">2</p>
+      </div>
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-5 shadow-sm" style="animation-delay:180ms">
+        <p class="text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2">Announcements</p>
+        <p class="text-3xl font-black text-blue-600">5</p>
+      </div>
+    </div>
+
+    <!-- AI MORNING BRIEFING -->
+    <div class="entrance bg-gradient-to-br from-blue-600 to-blue-800 rounded-2xl p-6 shadow-lg shadow-blue-600/20 mb-8" style="animation-delay:200ms">
+      <div class="flex items-center justify-between mb-3">
+        <div class="flex items-center gap-2">
+          <i class="ph ph-sparkle text-white text-lg"></i>
+          <p class="text-white font-bold text-sm">AI Morning Briefing</p>
+        </div>
+        <span class="text-xs text-blue-200 bg-blue-700/50 px-2.5 py-1 rounded-full font-medium border border-blue-500/30">AI Powered</span>
+      </div>
+      <p id="briefing-text" class="text-blue-100 text-sm leading-relaxed">Loading your briefing...</p>
+    </div>
+
+    <!-- ROW: CALENDAR + FOLLOW UPS -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
 
       <!-- WEEKLY CALENDAR -->
-      <div class="card calendar-card">
-        <div class="card-header">
-          <span class="card-title">Weekly Schedule</span>
-          <span class="badge-grey">June 2026</span>
+      <div class="entrance lg:col-span-2 bg-white border border-slate-200 rounded-2xl p-6 shadow-sm" style="animation-delay:240ms">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Schedule</p>
+            <h3 class="text-lg font-bold text-slate-900">Weekly Calendar</h3>
+          </div>
+          <span class="text-xs text-slate-500 bg-slate-100 px-3 py-1 rounded-full font-medium">June 2026</span>
         </div>
-        <div class="calendar-table-wrap">
-          <table class="calendar-table">
+        <div class="overflow-x-auto">
+          <table class="w-full text-xs border-collapse">
             <thead>
               <tr>
-                <th>Time</th>
-                <th>Monday</th>
-                <th>Tuesday</th>
-                <th>Wednesday</th>
-                <th>Thursday</th>
-                <th>Friday</th>
+                <th class="bg-slate-800 text-white px-3 py-2.5 text-left font-semibold rounded-tl-lg">Time</th>
+                <th class="bg-slate-800 text-white px-3 py-2.5 text-center font-semibold">Monday</th>
+                <th class="bg-slate-800 text-white px-3 py-2.5 text-center font-semibold">Tuesday</th>
+                <th class="bg-slate-800 text-white px-3 py-2.5 text-center font-semibold">Wednesday</th>
+                <th class="bg-slate-800 text-white px-3 py-2.5 text-center font-semibold">Thursday</th>
+                <th class="bg-slate-800 text-white px-3 py-2.5 text-center font-semibold rounded-tr-lg">Friday</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody class="divide-y divide-slate-100">
               <tr>
-                <td class="time-col">8AM</td>
-                <td class="task-email">Email</td>
-                <td class="task-email">Email</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-planning">Financial Planning</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">8AM</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
               </tr>
               <tr>
-                <td class="time-col">9AM</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-email">Email</td>
-                <td class="task-planning">Financial Planning</td>
-                <td class="task-email">Email</td>
-                <td class="task-staff">Staff Meeting</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">9AM</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-purple-50 text-purple-700">Staff Meeting</td>
               </tr>
               <tr>
-                <td class="time-col">10AM</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-planning">Financial Planning</td>
-                <td class="task-email">Email</td>
-                <td class="task-email">Email</td>
-                <td class="task-meeting">Client Meeting</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">10AM</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
               </tr>
               <tr>
-                <td class="time-col">11AM</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-planning">Financial Planning</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-meeting">Client Meeting</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">11AM</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
               </tr>
               <tr>
-                <td class="time-col">12PM</td>
-                <td class="task-email">Email</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-planning">Financial Planning</td>
-                <td class="task-email">Email</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">12PM</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
               </tr>
               <tr>
-                <td class="time-col">1PM</td>
-                <td class="task-staff">Staff Meeting</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-staff">Staff Meeting</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-service">Client Service</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">1PM</td>
+                <td class="px-3 py-2 text-center bg-purple-50 text-purple-700">Staff Meeting</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-purple-50 text-purple-700">Staff Meeting</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
               </tr>
               <tr>
-                <td class="time-col">2PM</td>
-                <td class="task-staff">Staff Meeting</td>
-                <td class="task-email">Email</td>
-                <td class="task-staff">Staff Meeting</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-meeting">Client Meeting</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">2PM</td>
+                <td class="px-3 py-2 text-center bg-purple-50 text-purple-700">Staff Meeting</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-purple-50 text-purple-700">Staff Meeting</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
               </tr>
               <tr>
-                <td class="time-col">3PM</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-meeting">Client Meeting</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">3PM</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
               </tr>
               <tr>
-                <td class="time-col">4PM</td>
-                <td class="task-planning">Financial Planning</td>
-                <td class="task-planning">Financial Planning</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-email">Email</td>
-                <td class="task-planning">Financial Planning</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap">4PM</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600">Email</td>
+                <td class="px-3 py-2 text-center bg-green-50 text-green-700">Fin. Planning</td>
               </tr>
               <tr>
-                <td class="time-col">5PM</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-meeting">Client Meeting</td>
-                <td class="task-service">Client Service</td>
-                <td class="task-email">Email</td>
+                <td class="px-3 py-2 text-slate-500 font-semibold bg-slate-50 whitespace-nowrap rounded-bl-lg">5PM</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-blue-50 text-blue-700">Client Meeting</td>
+                <td class="px-3 py-2 text-center bg-yellow-50 text-yellow-700">Client Service</td>
+                <td class="px-3 py-2 text-center bg-slate-100 text-slate-600 rounded-br-lg">Email</td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- FOLLOW UPS -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Proactive Follow Ups</span>
-          <span class="see-all">See all</span>
+      <!-- PROACTIVE FOLLOW UPS -->
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-6 shadow-sm" style="animation-delay:280ms">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Urgent</p>
+            <h3 class="text-lg font-bold text-slate-900">Follow Ups</h3>
+          </div>
+          <span class="text-xs text-blue-600 font-medium cursor-pointer hover:underline">See all</span>
         </div>
-        <ul class="item-list">
-          <li>
-            <div class="priority-dot red"></div>
-            <div class="item-info">
-              <strong>Sarah Ng</strong>
-              <p>No contact in 21 days</p>
+        <div class="space-y-3">
+          <div class="p-3 rounded-xl border border-red-100 bg-red-50 flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full bg-red-500 mt-1.5 shrink-0"></div>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-slate-900">Sarah Ng</p>
+              <p class="text-xs text-slate-500">No contact in 21 days</p>
             </div>
-            <span class="tag tag-red">Urgent</span>
-          </li>
-          <li>
-            <div class="priority-dot orange"></div>
-            <div class="item-info">
-              <strong>David Chong</strong>
-              <p>Policy renewal in 7 days</p>
+            <span class="text-xs bg-red-100 text-red-600 px-2 py-0.5 rounded-full font-medium">Urgent</span>
+          </div>
+          <div class="p-3 rounded-xl border border-orange-100 bg-orange-50 flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full bg-orange-500 mt-1.5 shrink-0"></div>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-slate-900">David Chong</p>
+              <p class="text-xs text-slate-500">Policy renewal in 7 days</p>
             </div>
-            <span class="tag tag-orange">Soon</span>
-          </li>
-          <li>
-            <div class="priority-dot blue"></div>
-            <div class="item-info">
-              <strong>Tan Family</strong>
-              <p>Estate plan review due</p>
+            <span class="text-xs bg-orange-100 text-orange-600 px-2 py-0.5 rounded-full font-medium">Soon</span>
+          </div>
+          <div class="p-3 rounded-xl border border-blue-100 bg-blue-50 flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full bg-blue-500 mt-1.5 shrink-0"></div>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-slate-900">Tan Family</p>
+              <p class="text-xs text-slate-500">Estate plan review due</p>
             </div>
-            <span class="tag tag-blue">Pending</span>
-          </li>
-          <li>
-            <div class="priority-dot green"></div>
-            <div class="item-info">
-              <strong>Mary Lim</strong>
-              <p>Called yesterday</p>
+            <span class="text-xs bg-blue-100 text-blue-600 px-2 py-0.5 rounded-full font-medium">Pending</span>
+          </div>
+          <div class="p-3 rounded-xl border border-green-100 bg-green-50 flex items-start gap-3">
+            <div class="w-2 h-2 rounded-full bg-green-500 mt-1.5 shrink-0"></div>
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-slate-900">Mary Lim</p>
+              <p class="text-xs text-slate-500">Called yesterday</p>
             </div>
-            <span class="tag tag-green">Done</span>
-          </li>
-        </ul>
+            <span class="text-xs bg-green-100 text-green-600 px-2 py-0.5 rounded-full font-medium">Done</span>
+          </div>
+        </div>
       </div>
 
     </div>
 
-    <!-- ROW 3 -->
-    <div class="row">
+    <!-- ROW: ANNOUNCEMENTS + KNOWLEDGE BASE + NOTIFICATIONS -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
       <!-- ANNOUNCEMENTS -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Announcements</span>
-          <span class="see-all">See all</span>
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-6 shadow-sm" style="animation-delay:300ms">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Latest</p>
+            <h3 class="text-lg font-bold text-slate-900">Announcements</h3>
+          </div>
+          <span class="text-xs text-blue-600 font-medium cursor-pointer hover:underline">See all</span>
         </div>
-        <ul class="item-list">
-          <li>
-            <div class="priority-dot blue"></div>
-            <div class="item-info">
-              <strong>TechStart Sdn Bhd</strong>
-              <p>Seeking wealth planning assistance</p>
-            </div>
-          </li>
-          <li>
-            <div class="priority-dot blue"></div>
-            <div class="item-info">
-              <strong>GreenCo Sdn Bhd</strong>
-              <p>Enquiring about corporate insurance</p>
-            </div>
-          </li>
-          <li>
-            <div class="priority-dot orange"></div>
-            <div class="item-info">
-              <strong>Team Briefing</strong>
-              <p>Friday 3:00pm — All advisors required</p>
-            </div>
-          </li>
-        </ul>
+        <div class="space-y-3">
+          <div class="border-l-4 border-blue-600 bg-slate-50 rounded-r-xl p-3 hover:bg-blue-50 transition-colors">
+            <p class="text-sm font-semibold text-slate-900">TechStart Sdn Bhd</p>
+            <p class="text-xs text-slate-500 mt-0.5">Seeking wealth planning assistance</p>
+            <p class="text-xs text-slate-400 mt-1">2 hours ago</p>
+          </div>
+          <div class="border-l-4 border-blue-600 bg-slate-50 rounded-r-xl p-3 hover:bg-blue-50 transition-colors">
+            <p class="text-sm font-semibold text-slate-900">GreenCo Sdn Bhd</p>
+            <p class="text-xs text-slate-500 mt-0.5">Enquiring about corporate insurance</p>
+            <p class="text-xs text-slate-400 mt-1">5 hours ago</p>
+          </div>
+          <div class="border-l-4 border-orange-400 bg-slate-50 rounded-r-xl p-3 hover:bg-orange-50 transition-colors">
+            <p class="text-sm font-semibold text-slate-900">Team Briefing</p>
+            <p class="text-xs text-slate-500 mt-0.5">Friday 3:00pm — All advisors required</p>
+            <p class="text-xs text-slate-400 mt-1">1 day ago</p>
+          </div>
+        </div>
       </div>
 
       <!-- KNOWLEDGE BASE -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Knowledge Base</span>
-          <span class="see-all">See all</span>
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-6 shadow-sm" style="animation-delay:340ms">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Learn</p>
+            <h3 class="text-lg font-bold text-slate-900">Knowledge Base</h3>
+          </div>
+          <span class="text-xs text-blue-600 font-medium cursor-pointer hover:underline">See all</span>
         </div>
-        <ul class="item-list">
-          <li>
-            <div class="priority-dot blue"></div>
-            <div class="item-info">
-              <strong>Retirement Planning 101</strong>
-              <p>Guide · 5 min read</p>
+        <div class="space-y-3">
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50 transition-colors flex items-center gap-3 cursor-pointer group">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shrink-0">
+              <i class="ph ph-file-text text-sm"></i>
             </div>
-            <span class="tag tag-blue">Guide</span>
-          </li>
-          <li>
-            <div class="priority-dot blue"></div>
-            <div class="item-info">
-              <strong>Estate Planning Basics</strong>
-              <p>Handbook · 8 min read</p>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-slate-900 truncate">Retirement Planning 101</p>
+              <p class="text-xs text-slate-400">Guide · 5 min read</p>
             </div>
-            <span class="tag tag-blue">Guide</span>
-          </li>
-          <li>
-            <div class="priority-dot green"></div>
-            <div class="item-info">
-              <strong>Wealth Accumulation</strong>
-              <p>Video · 12 mins</p>
+            <i class="ph ph-arrow-right text-slate-300 group-hover:text-blue-600 transition-colors"></i>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50 transition-colors flex items-center gap-3 cursor-pointer group">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center border border-blue-100 shrink-0">
+              <i class="ph ph-book-open text-sm"></i>
             </div>
-            <span class="tag tag-green">Video</span>
-          </li>
-        </ul>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-slate-900 truncate">Estate Planning Basics</p>
+              <p class="text-xs text-slate-400">Handbook · 8 min read</p>
+            </div>
+            <i class="ph ph-arrow-right text-slate-300 group-hover:text-blue-600 transition-colors"></i>
+          </div>
+          <div class="bg-slate-50 p-3 rounded-xl border border-slate-100 hover:border-blue-200 hover:bg-blue-50 transition-colors flex items-center gap-3 cursor-pointer group">
+            <div class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center border border-green-100 shrink-0">
+              <i class="ph ph-video text-sm"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="text-sm font-medium text-slate-900 truncate">Wealth Accumulation</p>
+              <p class="text-xs text-slate-400">Video · 12 mins</p>
+            </div>
+            <i class="ph ph-arrow-right text-slate-300 group-hover:text-blue-600 transition-colors"></i>
+          </div>
+        </div>
       </div>
 
       <!-- NOTIFICATIONS -->
-      <div class="card">
-        <div class="card-header">
-          <span class="card-title">Notifications</span>
-          <span class="badge-grey">3 new</span>
+      <div class="entrance bg-white border border-slate-200 rounded-2xl p-6 shadow-sm" style="animation-delay:380ms">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <p class="text-xs font-bold text-blue-600 uppercase tracking-widest mb-1">Alerts</p>
+            <h3 class="text-lg font-bold text-slate-900">Notifications</h3>
+          </div>
+          <span class="text-xs text-blue-600 bg-blue-50 border border-blue-100 px-2.5 py-1 rounded-full font-medium">3 new</span>
         </div>
-        <ul class="item-list">
-          <li>
-            <div class="priority-dot blue"></div>
-            <div class="item-info">
-              <strong>CPD Points Updated</strong>
-              <p>You now have 12 points this month</p>
+        <div class="space-y-3">
+          <div class="px-4 py-3 flex gap-3 hover:bg-slate-50 rounded-xl transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-blue-50 text-blue-600 flex items-center justify-center shrink-0 border border-blue-100">
+              <i class="ph ph-trophy text-sm"></i>
             </div>
-          </li>
-          <li>
-            <div class="priority-dot green"></div>
-            <div class="item-info">
-              <strong>New Meeting Booked</strong>
-              <p>Client scheduled for Monday 10am</p>
+            <div>
+              <p class="text-sm text-slate-900 font-medium">CPD Points Updated</p>
+              <p class="text-xs text-slate-400 mt-0.5">You now have 12 points</p>
             </div>
-          </li>
-          <li>
-            <div class="priority-dot red"></div>
-            <div class="item-info">
-              <strong>Expense Report Due</strong>
-              <p>Submission deadline this Friday</p>
+          </div>
+          <div class="px-4 py-3 flex gap-3 hover:bg-slate-50 rounded-xl transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-green-50 text-green-600 flex items-center justify-center shrink-0 border border-green-100">
+              <i class="ph ph-calendar-check text-sm"></i>
             </div>
-          </li>
-        </ul>
+            <div>
+              <p class="text-sm text-slate-900 font-medium">New Meeting Booked</p>
+              <p class="text-xs text-slate-400 mt-0.5">Client scheduled Monday 10am</p>
+            </div>
+          </div>
+          <div class="px-4 py-3 flex gap-3 hover:bg-slate-50 rounded-xl transition-colors">
+            <div class="w-8 h-8 rounded-lg bg-red-50 text-red-500 flex items-center justify-center shrink-0 border border-red-100">
+              <i class="ph ph-warning text-sm"></i>
+            </div>
+            <div>
+              <p class="text-sm text-slate-900 font-medium">Expense Report Due</p>
+              <p class="text-xs text-slate-400 mt-0.5">Submission deadline this Friday</p>
+            </div>
+          </div>
+        </div>
       </div>
 
     </div>
-  </div>
+  </main>
 
   <script src="js/script.js"></script>
 </body>
