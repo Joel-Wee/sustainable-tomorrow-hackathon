@@ -12,29 +12,6 @@ You are currently at 12 CPD points — 3 away from your monthly quota.`;
 
 document.getElementById('briefing-text').innerText = briefing;
 
-// Dropdown toggles
-function setupDropdown(triggerId, dropdownId) {
-  const trigger = document.getElementById(triggerId);
-  const dropdown = document.getElementById(dropdownId);
-  if (!trigger || !dropdown) return;
-  trigger.addEventListener('click', (e) => {
-    e.stopPropagation();
-    dropdown.classList.toggle('open-panel');
-    dropdown.classList.toggle('hidden-panel');
-  });
-}
-
-setupDropdown('bell-trigger', 'bell-dropdown');
-setupDropdown('profile-trigger', 'profile-dropdown');
-
-// Close dropdowns when clicking outside
-document.addEventListener('click', () => {
-  document.querySelectorAll('.dropdown-panel').forEach(d => {
-    d.classList.remove('open-panel');
-    d.classList.add('hidden-panel');
-  });
-});
-
 // Logout
 function handleLogout() {
   localStorage.removeItem('loggedIn');

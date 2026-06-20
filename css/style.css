@@ -26,3 +26,35 @@ body {
   transform: scale(1) translateY(0) !important;
   pointer-events: auto !important;
 }
+/* App Nav Links */
+.app-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  color: #64748b;
+}
+
+.app-nav-link:hover {
+  color: #1e293b;
+  background-color: #f1f5f9;
+}
+
+.app-nav-active {
+  background-color: #2563eb !important;
+  color: white !important;
+  box-shadow: 0 1px 3px rgba(37, 99, 235, 0.3);
+}
+
+.icon-btn {
+  transition: background-color 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.icon-btn:active {
+  transform: scale(0.92);
+}
