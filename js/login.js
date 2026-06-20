@@ -8,7 +8,7 @@ function handleLogin() {
     return;
   }
 
-  if (email === 'sarah@aag.com' && password === 'pw123') {
+  if (email === 'sarah@mail.com' && password === 'pw123') {
     // Save login state
     localStorage.setItem('loggedIn', 'true');
     localStorage.setItem('userName', 'Sarah Ahmad');
