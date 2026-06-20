@@ -5,8 +5,10 @@ body {
 /* Smooth transitions for the progress bar */
 #progress-bar-fill {
     transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+    background: #2563eb !important;
+    position: relative;
+    overflow: hidden;
 }
-
 /* Modal animation */
 #course-modal {
     transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -95,4 +97,28 @@ body {
 /* Nav tab transitions */
 .nav-tab {
     transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+}
+
+
+#progress-bar-fill::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255,255,255,0) 0px,
+    rgba(255,255,255,0) 10px,
+    rgba(255,255,255,0.25) 10px,
+    rgba(255,255,255,0.25) 20px
+  );
+  background-size: 28px 28px;
+  animation: moveStripes 0.8s linear infinite;
+}
+
+@keyframes moveStripes {
+  0% { background-position: 0 0; }
+  100% { background-position: 28px 0; }
 }
