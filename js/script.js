@@ -221,6 +221,7 @@ function saveTask() {
 
   closeTaskModal();
   renderCalendar();
+  updateMeetingCount();
 }
 
 function deleteTask() {
@@ -229,6 +230,7 @@ function deleteTask() {
   localStorage.setItem('capsight_schedule', JSON.stringify(scheduleData));
   closeTaskModal();
   renderCalendar();
+  updateMeetingCount();
 }
 
 // Close modal on backdrop click
@@ -236,5 +238,29 @@ document.getElementById('task-modal').addEventListener('click', (e) => {
   if (e.target === document.getElementById('task-modal')) closeTaskModal();
 });
 
+function updateMeetingCount() {
+  const today = new Date();
+  const jsDay = today.getDay();
+
+  // Convert JS day to our index (0=Monday, 4=Friday)
+  const todayIdx = jsDay - 1;
+
+  // Get the meetings today stat card
+  const meetingCard = document.querySelector('[data-stat="meetings"]');
+
+  // Weekend = 0 meetings
+  if (todayIdx < 0 || todayIdx > 4) {
+    if (meetingCard) meetingCard.innerText = '0';
+    return;
+  }
+
+  const count = scheduleData.filter(t =>
+    t.day === todayIdx && t.category === 'Client Meeting'
+  ).length;
+
+  if (meetingCard) meetingCard.innerText = count;
+}
+
 // Init calendar
 renderCalendar();
+updateMeetingCount();
