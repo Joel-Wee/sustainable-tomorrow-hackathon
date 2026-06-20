@@ -108,33 +108,7 @@ function updateLeaderboard(data) {
   }
 }
 
-function closeAllDropdowns() {
-  document.querySelectorAll(".dropdown-panel.open-panel").forEach(p => {
-    p.classList.remove("open-panel");
-    p.classList.add("hidden-panel");
-  });
-}
-
-function setupDropdown(triggerId, panelId) {
-  const trigger = document.getElementById(triggerId);
-  const panel = document.getElementById(panelId);
-  if (!trigger || !panel) return;
-  trigger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isOpen = panel.classList.contains("open-panel");
-    closeAllDropdowns();
-    if (!isOpen) {
-      panel.classList.remove("hidden-panel");
-      panel.classList.add("open-panel");
-    }
-  });
-}
-
 document.addEventListener("DOMContentLoaded", () => {
-  setupDropdown("profile-trigger", "profile-dropdown");
-  setupDropdown("bell-trigger",    "bell-dropdown");
-  document.addEventListener("click", closeAllDropdowns);
-  
   // Directly fires off the local mock data instead of polling a broken route!
   updateLeaderboard(SAMPLE_DATA);
 });
