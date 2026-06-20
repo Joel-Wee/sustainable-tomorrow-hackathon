@@ -316,45 +316,11 @@ function setDefaultDate() {
   const today = new Date().toISOString().split("T")[0];
   $("exp-date").value = today;
 }
-
 /* ------------------------------------------------------------
-   11) NAVBAR DROPDOWNS (bell + profile)
-   ------------------------------------------------------------ */
-function closeAllDropdowns() {
-  document.querySelectorAll(".dropdown-panel.open-panel").forEach(p => {
-    p.classList.remove("open-panel");
-    p.classList.add("hidden-panel");
-  });
-}
-
-function setupDropdown(triggerId, panelId) {
-  const trigger = $(triggerId);
-  const panel = $(panelId);
-  if (!trigger || !panel) return;
-  trigger.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const isOpen = panel.classList.contains("open-panel");
-    closeAllDropdowns();
-    if (!isOpen) {
-      panel.classList.remove("hidden-panel");
-      panel.classList.add("open-panel");
-    }
-  });
-}
-
-function handleLogout() {
-  showToast("Signed out (demo).", "success");
-}
-
-/* ------------------------------------------------------------
-   12) INIT
+   11) INIT
    ------------------------------------------------------------ */
 document.addEventListener("DOMContentLoaded", () => {
   setDefaultDate();
   recomputeTotals();
   renderLedger();
-
-  setupDropdown("profile-trigger", "profile-dropdown");
-  setupDropdown("bell-trigger", "bell-dropdown");
-  document.addEventListener("click", closeAllDropdowns);
 });
